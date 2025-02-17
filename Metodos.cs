@@ -8,6 +8,6 @@ namespace PokeDeck
 {
     internal class Metodos
     {
-        public static bool perfil;
+        public static bool perfil=false;
     }
 }

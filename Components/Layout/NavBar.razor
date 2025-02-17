@@ -16,7 +16,7 @@
                         <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Barajas
                     </NavLink>
                 </li>
-                
+
                 <li class="nav-item">
                     <NavLink class="nav-link" href="favoritos" Match="NavLinkMatch.All">
                         <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Favoritos
@@ -30,11 +30,23 @@
                 </button>
             </form>
             <div style="margin-left:50px">
-                <NavLink class="nav-link" href="perfil" Match="NavLinkMatch.All">
-                    <button class="btn btn-outline-success">
-                        <i class="bi bi-person-circle"></i>
-                    </button>
-                </NavLink>
+                @if (Metodos.perfil)
+                {
+                    <NavLink class="nav-link" href="perfil" Match="NavLinkMatch.All">
+                        <button class="btn btn-outline-success">
+                            <i class="bi bi-person-circle"></i>
+                        </button>
+                    </NavLink>
+                }
+                else
+                {
+                    <NavLink class="nav-link" href="login" Match="NavLinkMatch.All">
+                        <button class="btn btn-outline-success">
+                            <i class="bi bi-person-circle"></i>
+                        </button>
+                    </NavLink>
+                }
+
             </div>
         </div>
     </div>
