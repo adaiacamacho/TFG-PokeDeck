@@ -6,29 +6,23 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <li class="nav-item" style="margin-left:100px">
                     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                         <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> HomePage
                     </NavLink>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" style="margin-left:100px">
                     <NavLink class="nav-link" href="barajas" Match="NavLinkMatch.All">
                         <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Barajas
                     </NavLink>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item" style="margin-left:100px">
                     <NavLink class="nav-link" href="favoritos" Match="NavLinkMatch.All">
                         <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Favoritos
                     </NavLink>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">
-                    <i class="bi bi-search"></i>
-                </button>
-            </form>
             <div style="margin-left:50px">
                 @if (Metodos.perfil)
                 {
