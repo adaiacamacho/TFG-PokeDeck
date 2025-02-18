@@ -55,7 +55,13 @@
     <input style="width:90px;height:40px" placeholder="Precio max." />
     <button class="btn btn-outline-success" type="submit">Buscar</button>
 </div>
-
+<br /><br />
+@if (cartas == null)
+{
+    <div>
+        <h4>Cargando...</h4>
+    </div>
+}
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
