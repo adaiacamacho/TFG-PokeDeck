@@ -1,6 +1,17 @@
 ﻿@page "/barajas"
 <h3>Barajas</h3>
-
+<div class="card text-bg-light mb-3" style="width: 18rem;">
+    <button class="card-img-top" style="background-color:lightgray;height:10rem" @onclick="nuevaBaraja">
+        <i class="bi bi-plus-lg" style="font-size:x-large"></i>
+    </button>  
+    <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->        
+    </div>
+</div>
 @code {
-
+    public void nuevaBaraja()
+    {
+        //query para nueva baraja
+    }
 }
