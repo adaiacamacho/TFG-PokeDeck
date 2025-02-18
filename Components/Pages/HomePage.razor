@@ -17,7 +17,7 @@
     <select class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         <!--foreach-->
         <option value="-1">Debilidad</option>
-        @if (debilidades!=null)
+        @if (debilidades != null)
         {
             @foreach (string deb in debilidades)
             {
@@ -200,7 +200,7 @@
             <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
             <a href="#" class="text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
         </p>
-    </div>
+    </div>s
 </footer>
 
 @code {
@@ -208,11 +208,31 @@
     Tipos? tipos;
     Rareza? rareza;
     Cartas? cartas;
-    List<string>? debilidades;
+    List<string>? debilidades = new List<string>();
+    List<string>? debilidadesduplicadas = new List<string>();
+    string mierror;
 
     protected override async Task OnInitializedAsync()
     {
         cartas = await http.GetFromJsonAsync<Cartas>(Metodos.GetCartas());
-        debilidades = (from a in cartas!.data select a.weaknesses[0].type).Distinct().OrderBy(x => x).ToList();
+        try
+        {
+            for (int i = 0; i < cartas.data.Count(); i++)
+            {
+                if (cartas.data[i].weaknesses != null )
+                {
+                    debilidadesduplicadas.Add(cartas.data[i].weaknesses[0].type);
+                }
+            }
+            debilidades = (from a in debilidadesduplicadas select a).Distinct().OrderBy(aa=>aa).ToList();
+        }
+
+        catch (Exception ex)
+        {
+            mierror = ex.Message;
+
+        }
+
+
     }
 }
