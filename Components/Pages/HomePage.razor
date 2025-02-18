@@ -6,10 +6,14 @@
 
 <div class="dropdown" style="float:left">
     <select class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <option value="value">Tipo</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
+        <option value="-1">Tipo</option>
+        @if (tipos != null)
+        {
+            @foreach (string tipo in tipos)
+            {
+                <option value="@tipo">@tipo</option>
+            }
+        }
     </select>
 </div>
 
@@ -24,15 +28,18 @@
                 <option value="@deb">@deb</option>
             }
         }
-
     </select>
 </div>
 <div class="dropdown" style="float:left;margin-left:30px">
     <select class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <option value="value">Rareza</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
+        <option value="-1">Rareza</option>
+        @if (rarezas != null)
+        {
+            @foreach (string rare in rarezas)
+            {
+                <option value="@rare">@rare</option>
+            }
+        }
     </select>
 </div>
 
@@ -205,34 +212,24 @@
 
 @code {
     HttpClient http = new HttpClient();
-    Tipos? tipos;
-    Rareza? rareza;
     Cartas? cartas;
-    List<string>? debilidades = new List<string>();
-    List<string>? debilidadesduplicadas = new List<string>();
-    string mierror;
+    List<string>? tipos ;
+    List<string>? rarezas ;
+    List<string>? debilidades;
+    List<string>? deb2 = new List<string>();
 
     protected override async Task OnInitializedAsync()
     {
         cartas = await http.GetFromJsonAsync<Cartas>(Metodos.GetCartas());
-        try
+        for (int i = 0; i < cartas!.data.Count(); i++)
         {
-            for (int i = 0; i < cartas.data.Count(); i++)
+            if (cartas.data[i].weaknesses != null)
             {
-                if (cartas.data[i].weaknesses != null )
-                {
-                    debilidadesduplicadas.Add(cartas.data[i].weaknesses[0].type);
-                }
+                deb2!.Add(cartas.data[i].weaknesses[0].type);
             }
-            debilidades = (from a in debilidadesduplicadas select a).Distinct().OrderBy(aa=>aa).ToList();
         }
-
-        catch (Exception ex)
-        {
-            mierror = ex.Message;
-
-        }
-
-
+        debilidades = (from a in deb2 select a).Distinct().OrderBy(aa => aa).ToList();
+        tipos = (from a in cartas.data select a.types[0]).Distinct().OrderBy(x => x).ToList();
+        rarezas = (from a in cartas.data select a.rarity).Distinct().OrderBy(x => x).ToList();
     }
 }
