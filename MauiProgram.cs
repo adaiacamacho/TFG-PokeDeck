@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using PokeDeck.Services;
 
 namespace PokeDeck
 {
@@ -15,9 +16,16 @@ namespace PokeDeck
                 });
 
             builder.Services.AddMauiBlazorWebView();
+            builder.Services.AddScoped<BarajaService>();
+            builder.Services.AddScoped<CartaService>();
+            builder.Services.AddScoped<FavoritoService>();
+            builder.Services.AddScoped<IdiomaService>();
+            builder.Services.AddScoped<ImagenPerfilService>();
+            builder.Services.AddScoped<UsuarioService>();
+
 
 #if DEBUG
-    		builder.Services.AddBlazorWebViewDeveloperTools();
+            builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
 
