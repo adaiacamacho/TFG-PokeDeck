@@ -16,11 +16,11 @@ namespace PokeDeck.ModelosBD
         public string nombre { get; set; }
         public string apellido { get; set; }
         public string email { get; set; }
-        public int idImagen { get; set; }
-        public object[] barajas { get; set; }
-        public object[] favoritos { get; set; }
-        public object idIdiomaNavigation { get; set; }
-        public object idImagenNavigation { get; set; }
+        public int? idImagen { get; set; }
+        public object[]? barajas { get; set; }
+        public object[]? favoritos { get; set; }
+        public object? idIdiomaNavigation { get; set; }
+        public object? idImagenNavigation { get; set; }
     }
 
 }

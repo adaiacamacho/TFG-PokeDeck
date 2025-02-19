@@ -1,6 +1,8 @@
-﻿using PokeDeck.ModelosBD;
+﻿
+using PokeDeck.ModelosBD;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
@@ -32,6 +34,8 @@ namespace PokeDeck.Services
         public async Task<bool> Add(UsuarioDB item)
         {
             var response = await _http.PostAsJsonAsync(apiUrl, item);
+            string body=await response.Content.ReadAsStringAsync();
+            Debug.WriteLine(body);
             return response.IsSuccessStatusCode;
         }
 
