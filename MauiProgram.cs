@@ -22,6 +22,7 @@ namespace PokeDeck
             builder.Services.AddScoped<IdiomaService>();
             builder.Services.AddScoped<ImagenPerfilService>();
             builder.Services.AddScoped<UsuarioService>();
+            builder.Services.AddScoped(sp => new HttpClient ());
 
 
 #if DEBUG

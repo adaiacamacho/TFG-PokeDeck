@@ -54,6 +54,7 @@
                 {
                     Metodos.perfil = true;
                     App.Current!.MainPage!.DisplayAlert("Login", "Sesion inciada con éxito.", "OK");
+                    AppContext.SetData("logged",item.id);
                     Navigation.NavigateTo("/", true);
                     return;
                 }

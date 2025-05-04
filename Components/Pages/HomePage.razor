@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using ModeloCard;
 @using ModeloCartas;
+@inject HttpClient http;
 
 <div class="dropdown" style="float:left">
     <select class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -215,7 +216,6 @@
 </footer>
 
 @code {
-    HttpClient http = new HttpClient();
     Cartas? cartas;
     List<string>? tipos ;
     List<string>? rarezas ;
