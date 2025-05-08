@@ -96,7 +96,7 @@ body {
 .card-mosaic {
     margin-top: 5%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Menos cartas por fila */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Menos cartas por fila */
     gap: 2rem; /* Más espacio entre cartas */
     padding: 2rem 4rem; /* Espaciado a los lados y arriba/abajo */
     justify-content: center;

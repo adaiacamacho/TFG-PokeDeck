@@ -2,124 +2,298 @@
 @using ModeloCard;
 @using ModeloCartas;
 
+<!-- TIPO -->
 <div class="dropdown" style="float:left">
-    <select class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <option value="-1">Tipo</option>
-        @if (tipos != null)
-        {
-            @foreach (string tipo in tipos)
-            {
-                <option value="@tipo">@tipo</option>
-            }
-        }
-    </select>
+	<select class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" @bind="SelectedTipo">
+		<option value="-1">Tipo</option>
+		@if (tipos != null)
+		{
+			@foreach (string tipo in tipos)
+			{
+				<option value="@tipo">@tipo</option>
+			}
+		}
+	</select>
 </div>
 
+<!-- DEBILIDAD -->
 <div class="dropdown" style="float:left;margin-left:30px">
-    <select class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <!--foreach-->
-        <option value="-1">Debilidad</option>
-        @if (debilidades != null)
-        {
-            @foreach (string deb in debilidades)
-            {
-                <option value="@deb">@deb</option>
-            }
-        }
-    </select>
-</div>
-<div class="dropdown" style="float:left;margin-left:30px">
-    <select class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <option value="-1">Rareza</option>
-        @if (rarezas != null)
-        {
-            @foreach (string rare in rarezas)
-            {
-                <option value="@rare">@rare</option>
-            }
-        }
-    </select>
+	<select class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" @bind="SelectedDebilidad">
+		<option value="-1">Debilidad</option>
+		@if (debilidades != null)
+		{
+			@foreach (string deb in debilidades)
+			{
+				<option value="@deb">@deb</option>
+			}
+		}
+	</select>
 </div>
 
+<!-- RAREZA -->
+<div class="dropdown" style="float:left;margin-left:30px">
+	<select class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" @bind="SelectedRareza">
+		<option value="-1">Rareza</option>
+		@if (rarezas != null)
+		{
+			@foreach (string rare in rarezas)
+			{
+				<option value="@rare">@rare</option>
+			}
+		}
+	</select>
+</div>
+
+<!-- BÚSQUEDA NOMBRE -->
 <form class="d-flex" style="float:right;width:300px" role="search">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success" type="submit">
-        <i class="bi bi-search"></i>
-    </button>
+	<input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search">
+	<button class="btn btn-outline-success" type="submit">
+		<i class="bi bi-search"></i>
+	</button>
 </form>
 
+<!-- PRECIO -->
 <div style="margin-left:30px;float:left">
-    <input style="width:90px;height:40px" placeholder="Precio min." /> -
-    <input style="width:90px;height:40px" placeholder="Precio max." />
-    <button class="btn btn-outline-success" type="submit">Buscar</button>
+	<input style="width:90px;height:40px" placeholder="Precio min." /> -
+	<input style="width:90px;height:40px" placeholder="Precio max." />
+	<button class="btn btn-outline-success" type="submit">Buscar</button>
 </div>
 <br />
 <br />
 
-@if (cartas == null)
+<!-- Punto anclaje scroll -->
+<input @ref="top" style="position:absolute; top:0; left:0; opacity:0;" />
+
+
+@if (estaCargando)
 {
-    <div class="loading-container">
-        <div class="spinner-border custom-spinner" role="status">
-            <span class="visually-hidden">Cargando...</span>
-        </div>
-        <h4 class="loading-text">Cargando cartas...</h4>
-    </div>
+	<div class="loading-container">
+		<div class="spinner-border custom-spinner" role="status">
+			<span class="visually-hidden">Cargando...</span>
+		</div>
+		<h4 class="loading-text">Cargando cartas...</h4>
+	</div>
 }
-else if (!cartas.data.Any())
+else if (cartas == null)
 {
-    <div>
-        <h4>No hay cartas.</h4>
-    </div>
+	<div>
+		<h4>No hay cartas.</h4>
+	</div>
+}
+else if (!cartasFiltradas.Any())
+{
+	<div>
+		<h4>No hay cartas que coincidan.</h4>
+	</div>
 }
 else
 {
-    <div class="card-mosaic">
-        @foreach (var carta in cartas.data)
-        {
-            <div class="card-item">
-                <img src="@carta.images.large" alt="@carta.name" class="card-image" />
-                <div class="card-name">@carta.name</div>
-            </div>
-        }
-    </div>
+	<!-- Paginación top -->
+	<div class="pagination-container d-flex justify-content-center align-items-center my-4 gap-3">
+		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
+				@onclick="IrPaginaAnterior"
+				disabled="@(!PuedeIrPaginaAnterior)">
+			<i class="bi bi-arrow-left-circle me-2"></i>Anterior
+		</button>
+
+		<span class="fs-5 fw-semibold">Página @paginaActual de @totalPaginas</span>
+
+		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
+				@onclick="IrPaginaSiguiente"
+				disabled="@(!PuedeIrPaginaSiguiente)">
+			Siguiente<i class="bi bi-arrow-right-circle ms-2"></i>
+		</button>
+	</div>
+
+	<!-- MOSTRAR CARTAS -->
+	<div class="card-mosaic">
+		@foreach (var carta in cartasFiltradas)
+		{
+			<div class="card-item">
+				<img src="@carta.images.large" alt="@carta.name" class="card-image" />
+				<div class="card-name">@carta.name</div>
+			</div>
+		}
+	</div>
+
+	<!-- Paginación bottom -->
+	<div class="pagination-container d-flex justify-content-center align-items-center my-4 gap-3">
+		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
+				@onclick="IrPaginaAnterior"
+				disabled="@(!PuedeIrPaginaAnterior)">
+			<i class="bi bi-arrow-left-circle me-2"></i>Anterior
+		</button>
+
+		<span class="fs-5 fw-semibold">Página @paginaActual de @totalPaginas</span>
+
+		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
+				@onclick="IrPaginaSiguiente"
+				disabled="@(!PuedeIrPaginaSiguiente)">
+			Siguiente<i class="bi bi-arrow-right-circle ms-2"></i>
+		</button>
+	</div>
 }
 
 
 
 <!-- Footer -->
 <footer class="py-4 bg-dark text-white">
-    <div class="container text-center">
-        <p class="mb-0">© 2025 PokeDeck. Todos los derechos reservados.</p>
-        <p class="mb-0">
-            Síguenos en:
-            <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
-        </p>
-    </div>
+	<div class="container text-center">
+		<p class="mb-0">© 2025 PokeDeck. Todos los derechos reservados.</p>
+		<p class="mb-0">
+			Síguenos en:
+			<a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+			<a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+			<a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+			<a href="#" class="text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
+		</p>
+	</div>
 </footer>
 
 @code {
-    HttpClient http = new HttpClient();
-    Cartas? cartas;
-    List<string>? tipos;
-    List<string>? rarezas;
-    List<string>? debilidades;
-    List<string>? deb2 = new List<string>();
+	HttpClient http = new HttpClient();
 
-    protected override async Task OnInitializedAsync()
-    {
-        cartas = await http.GetFromJsonAsync<Cartas>(Metodos.GetCartas());
-        for (int i = 0; i < cartas!.data.Count(); i++)
-        {
-            if (cartas.data[i].weaknesses != null)
-            {
-                deb2!.Add(cartas.data[i].weaknesses[0].type);
-            }
-        }
-        debilidades = (from a in deb2 select a).Distinct().OrderBy(aa => aa).ToList();
-        tipos = (from a in cartas.data select a.types[0]).Distinct().OrderBy(x => x).ToList();
-        rarezas = (from a in cartas.data select a.rarity).Distinct().OrderBy(x => x).ToList();
-    }
+	Cartas? cartas;
+	List<Datum> cartasFiltradas = new();
+	List<string>? tipos;
+	List<string>? rarezas;
+	List<string>? debilidades;
+	List<string>? deb2 = new List<string>();
+
+	//paginacion
+	int paginaActual = 1;
+	int totalPaginas = 1;
+	int pageSize = 1;
+
+	bool estaCargando = false;
+
+	private ElementReference top;
+
+	private string SelectedTipo
+	{
+		get => selectedTipo;
+		set
+		{
+			selectedTipo = value;
+			FiltrarCartas();
+		}
+	}
+
+	private string SelectedDebilidad
+	{
+		get => selectedDebilidad;
+		set
+		{
+			selectedDebilidad = value;
+			FiltrarCartas();
+		}
+	}
+
+	private string SelectedRareza
+	{
+		get => selectedRareza;
+		set
+		{
+			selectedRareza = value;
+			FiltrarCartas();
+		}
+	}
+
+	private string selectedTipo = "-1";
+	private string selectedDebilidad = "-1";
+	private string selectedRareza = "-1";
+
+	protected override async Task OnInitializedAsync()
+	{
+		await CargarCartasAsync();
+	}
+
+	// Cargar cartas con paginación
+	private async Task CargarCartasAsync()
+	{
+		estaCargando = true;
+		StateHasChanged(); // fuerza actualización visual inmediata
+
+		try
+		{
+			var resultado = await http.GetFromJsonAsync<Cartas>(Metodos.GetCartas(paginaActual));
+
+			if (resultado != null)
+			{
+				cartas = resultado;
+				pageSize = cartas.pageSize;
+				totalPaginas = (int)Math.Ceiling((double)cartas.totalCount / pageSize);
+				cartasFiltradas = cartas.data.ToList();
+
+				deb2.Clear();
+				foreach (var carta in cartas.data)
+				{
+					if (carta.weaknesses != null && carta.weaknesses.Any())
+					{
+						deb2.Add(carta.weaknesses[0].type);
+					}
+				}
+
+				if (paginaActual == 1)
+				{
+					debilidades = deb2.Distinct().OrderBy(x => x).ToList();
+					tipos = cartas.data
+						.Where(c => c.types != null && c.types.Any())
+						.Select(c => c.types[0])
+						.Distinct().OrderBy(x => x).ToList();
+
+					rarezas = cartas.data
+						.Where(c => !string.IsNullOrEmpty(c.rarity))
+						.Select(c => c.rarity)
+						.Distinct().OrderBy(x => x).ToList();
+				}
+			}
+		}
+		finally
+		{
+			estaCargando = false;
+			StateHasChanged();
+		}
+	}
+
+	//filtrar cartas
+	private void FiltrarCartas()
+	{
+		if (cartas == null)
+			return;
+
+		cartasFiltradas = cartas.data
+			.Where(c =>
+				(string.IsNullOrEmpty(SelectedTipo) || SelectedTipo == "-1" || (c.types != null && c.types.Contains(SelectedTipo))) &&
+				(string.IsNullOrEmpty(SelectedDebilidad) || SelectedDebilidad == "-1" || (c.weaknesses != null && c.weaknesses.Any(w => w.type == SelectedDebilidad))) &&
+				(string.IsNullOrEmpty(SelectedRareza) || SelectedRareza == "-1" || (c.rarity != null && c.rarity == SelectedRareza))
+			)
+			.ToList();
+	}
+
+	// Métodos de navegación de página
+	private async Task IrPaginaSiguiente()
+	{
+		if (paginaActual < totalPaginas)
+		{
+			paginaActual++;
+			await CargarCartasAsync();
+			await top.FocusAsync();
+		}
+	}
+
+	private async Task IrPaginaAnterior()
+	{
+		if (paginaActual > 1)
+		{
+			paginaActual--;
+			await CargarCartasAsync();
+			await top.FocusAsync();
+		}
+	}
+
+	// Propiedades para deshabilitar botones
+	private bool PuedeIrPaginaSiguiente => paginaActual < totalPaginas;
+	private bool PuedeIrPaginaAnterior => paginaActual > 1;
+
 }

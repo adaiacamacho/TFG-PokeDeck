@@ -12,9 +12,9 @@ namespace PokeDeck
         public static bool perfil=false;
         public static string SelectedLanguage = "es";
 
-        public static string GetCartas()
+        public static string GetCartas(int pagina)
         {
-            return "https://api.pokemontcg.io/v2/cards/";
+            return $"https://api.pokemontcg.io/v2/cards?page={pagina}&pageSize=250";
         }
 
         public static string GetCarta(string id)
