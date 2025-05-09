@@ -10,7 +10,7 @@ namespace PokeDeck.ModelosBD
     public class ImagenPerfilDB
     {
         public int id { get; set; }
-        public string imagen { get; set; }
+        public byte[]? Imagen { get; set; }
         public object[] usuarios { get; set; }
     }
 

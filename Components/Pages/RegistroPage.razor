@@ -1,4 +1,5 @@
 ﻿@page "/registro"
+@inject NavigationManager nav;
 @using ModelosBD;
 @using Services;
 
@@ -53,7 +54,7 @@
     int random;
 
 
-    public async void registrarse()
+    public async Task registrarse()
     {
         if (nombre.Length == 0 || ape.Length == 0 || email.Length == 0 || user.Length == 0 || con.Length == 0)
         {
@@ -72,7 +73,9 @@
             temp.idImagen = random;
             temp.id = 0;
             var que= await UsuarioService.Add(temp);
-            App.Current!.MainPage!.DisplayAlert("Registro", "Usuario registrado con éxito."+que, "OK");
+            App.Current!.MainPage!.DisplayAlert("Registro", "Usuario registrado con éxito.", "OK");
+            nav.NavigateTo("/",true);
+
         }     
     }
 }

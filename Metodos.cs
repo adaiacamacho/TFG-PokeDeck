@@ -32,9 +32,14 @@ namespace PokeDeck
             return "https://api.pokemontcg.io/v2/rarities";
         }
 
-        public void ChangeLanguage(ChangeEventArgs e)
+        public static void ChangeLanguage(ChangeEventArgs e)
         {
             SelectedLanguage = e.Value.ToString();
+        }
+        public static string ImagenParse(byte[] imagenBytes)
+        {
+            var base64 = Convert.ToBase64String(imagenBytes);
+            return $"data:image/png;base64,{base64}";
         }
 
     }
