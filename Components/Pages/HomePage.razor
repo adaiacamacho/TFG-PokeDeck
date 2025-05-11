@@ -72,8 +72,8 @@
 		</div>
 
 		<!-- FILTRO DE BUSQUEDA POR NOMBRE -->
-		<form class="d-flex" role="search" @onsubmit="OnSearchSubmit">
-			<input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" @bind="buscarPorNombre">
+		<form class="d-flex" role="search" @onsubmit="CargarCartasPorNombre">
+			<input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" @bind="nombreBuscar">
 			<button class="btn btn-outline-success" type="submit">
 				<i class="bi bi-search"></i>
 			</button>
@@ -216,7 +216,7 @@ else
 	List<string>? deb2 = new List<string>();
 
 	//filtro nombre
-	private string buscarPorNombre = "";
+	private string nombreBuscar = "";
 
 	//filtro precio
 	private float? precioMinimo;
@@ -299,6 +299,57 @@ else
 					}
 				}
 
+				//carga los tipos para los filtros dropdown
+				if (paginaActual == 1)
+				{
+					//debilidad
+					debilidades = deb2.Distinct().OrderBy(x => x).ToList();
+					//tipos
+					tipos = cartas.data
+						.Where(c => c.types != null && c.types.Any())
+						.Select(c => c.types[0])
+						.Distinct().OrderBy(x => x).ToList();
+					//rarezas
+					rarezas = cartas.data
+						.Where(c => !string.IsNullOrEmpty(c.rarity))
+						.Select(c => c.rarity)
+						.Distinct().OrderBy(x => x).ToList();
+				}
+			}
+		}
+		finally
+		{
+			estaCargando = false;
+			StateHasChanged();
+		}
+	}
+
+	// Método para ejecutar la búsqueda por nombre
+	private async Task  CargarCartasPorNombre()
+	{
+		estaCargando = true;
+		StateHasChanged(); // fuerza actualización visual inmediata
+
+		try
+		{
+			var resultado = await http.GetFromJsonAsync<Cartas>(Metodos.GetCartasPorNombre(nombreBuscar, paginaActual));
+
+			if (resultado != null)
+			{
+				cartas = resultado;
+				pageSize = cartas.pageSize;
+				totalPaginas = (int)Math.Ceiling((double)cartas.totalCount / pageSize);
+				cartasFiltradas = cartas.data.ToList();
+
+				deb2.Clear();
+				foreach (var carta in cartas.data)
+				{
+					if (carta.weaknesses != null && carta.weaknesses.Any())
+					{
+						deb2.Add(carta.weaknesses[0].type);
+					}
+				}
+
 				if (paginaActual == 1)
 				{
 					debilidades = deb2.Distinct().OrderBy(x => x).ToList();
@@ -319,11 +370,6 @@ else
 			estaCargando = false;
 			StateHasChanged();
 		}
-	}
-
-	// Método para ejecutar la búsqueda cuando se envía el formulario
-	private void OnSearchSubmit()
-	{
 		FiltrarCartas();
 	}
 
@@ -342,14 +388,14 @@ else
 				// Filtro de búsqueda por rareza
 				(string.IsNullOrEmpty(SelectedRareza) || SelectedRareza == "-1" || (c.rarity != null && c.rarity == SelectedRareza)) &&
 				// Filtro de búsqueda por nombre
-				(string.IsNullOrEmpty(buscarPorNombre) || c.name.Contains(buscarPorNombre, StringComparison.OrdinalIgnoreCase)) &&
+				(string.IsNullOrEmpty(nombreBuscar) || c.name.Contains(nombreBuscar, StringComparison.OrdinalIgnoreCase)) &&
 				//Filtro por precio
 				(!precioMinimo.HasValue || (c.cardmarket?.prices?.trendPrice >= precioMinimo)) &&
 				(!precioMaximo.HasValue || (c.cardmarket?.prices?.trendPrice <= precioMaximo))
-				
+
 			)
 			.ToList();
-		
+
 		//forzar la actualización de la vista
 		StateHasChanged();
 	}
@@ -360,7 +406,8 @@ else
 		if (paginaActual < totalPaginas)
 		{
 			paginaActual++;
-			await CargarCartasAsync();
+			await CargarCartasPorNombre();
+			//await CargarCartasAsync();
 			await top.FocusAsync();
 		}
 	}
@@ -370,7 +417,8 @@ else
 		if (paginaActual > 1)
 		{
 			paginaActual--;
-			await CargarCartasAsync();
+			await CargarCartasPorNombre();
+			//await CargarCartasAsync();
 			await top.FocusAsync();
 		}
 	}
