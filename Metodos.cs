@@ -12,54 +12,50 @@ namespace PokeDeck
         public static bool perfil=false;
         public static string SelectedLanguage = "es";
 
-        //obtener cartas
-        public static string GetCartas(int pagina)
+        //obtener cartas        
+        //https://api.pokemontcg.io/v2/cards?q=name:** AND types:** AND weaknesses.type:** AND cardmarket.prices.trendPrice:[minimo TO maximo]&page=pagina&pageSize=250
+
+        public static string GetCartas(string nombre, string tipo, string debilidad, string rareza, float minimo, float maximo, int pagina)
         {
-            return $"https://api.pokemontcg.io/v2/cards?page={pagina}&pageSize=250";
+            string precioMax = "*";
+
+            if (tipo == "-1")
+            {
+                tipo = "";
+            }
+
+            if (debilidad == "-1")
+            {
+                debilidad = "";
+            }
+
+            if (rareza == "-1")
+            {
+                rareza = "";
+            }
+
+            if (maximo != 0)
+            {
+                precioMax = maximo.ToString();
+            }
+                return $"https://api.pokemontcg.io/v2/cards?q=name:*{nombre}* AND types:*{tipo}* AND weaknesses.type:*{debilidad}* AND rarity:*{rareza}* AND cardmarket.prices.trendPrice:[{minimo} TO {precioMax}]&page={pagina}&pageSize=250";
         }
 
-
-        //https://api.pokemontcg.io/v2/cards?q=name:*charizard* AND types:darkness AND weaknesses.type:grass&page=2&pageSize=250
-
-
-        //obtener cartas por nombre
-        public static string GetCartasPorNombre(string nombre, int pagina)
-        {
-            return "https://api.pokemontcg.io/v2/cards?q=name:*"+nombre+ "*&page="+pagina+"pageSize=250";
-        }
-
-        //obtener cartas por tipo
-        public static string GetCartasPorTipo(string tipo, int pagina)
-        {
-            return $"https://api.pokemontcg.io/v2/cards?page={pagina}&pageSize=250q=types:*" + tipo + "*";
-        }
-
-        //obtener cartas por tipo
-        public static string GetCartasPorDebilidad(string debilidad, int pagina)
-        {
-            return $"https://api.pokemontcg.io/v2/cards?page={pagina}&pageSize=250q=types:*" + debilidad + "*";
-        }
-
-        //obtener cartas por rareza
-        public static string GetCartasPorRareza(string rareza, int pagina)
-        {
-            return $"https://api.pokemontcg.io/v2/cards?page={pagina}&pageSize=250q=types:*" + rareza + "*";
-        }
-
-
-        public static string GetCarta(string id)
-        {
-            return "https://api.pokemontcg.io/v2/cards/"+id;
-        }
-
+        //obtener los tipos y debilidades (es la misma lista)
         public static string GetTipos()
         {
             return "https://api.pokemontcg.io/v2/types";
         }
 
-        public static string GetRareza()
+        //obtener las rareza
+        public static string GetRarezas()
         {
             return "https://api.pokemontcg.io/v2/rarities";
+        }
+
+        public static string GetCarta(string id)
+        {
+            return "https://api.pokemontcg.io/v2/cards/"+id;
         }
 
         public static void ChangeLanguage(ChangeEventArgs e)
