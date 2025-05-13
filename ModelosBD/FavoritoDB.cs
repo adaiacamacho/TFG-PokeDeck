@@ -8,7 +8,7 @@ namespace PokeDeck.ModelosBD
 {
     public class FavoritoDB
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public int IdUser { get; set; }
 
