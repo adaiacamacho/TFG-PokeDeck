@@ -58,7 +58,7 @@
     {
         if (nombre.Length == 0 || ape.Length == 0 || email.Length == 0 || user.Length == 0 || con.Length == 0)
         {
-            App.Current!.MainPage!.DisplayAlert("Error", "Datos incompletos.", "OK");
+            await App.Current!.MainPage!.DisplayAlert("Error", "Datos incompletos.", "OK");
         }
         else
         {
@@ -73,7 +73,7 @@
             temp.idImagen = random;
             temp.id = 0;
             var que= await UsuarioService.Add(temp);
-            App.Current!.MainPage!.DisplayAlert("Registro", "Usuario registrado con éxito.", "OK");
+            await App.Current!.MainPage!.DisplayAlert("Registro", "Usuario registrado con éxito.", "OK");
             nav.NavigateTo("/",true);
 
         }     

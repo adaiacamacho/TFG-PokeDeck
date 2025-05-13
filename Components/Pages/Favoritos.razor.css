@@ -1,0 +1,50 @@
+﻿.custom-spinner {
+    width: 4rem;
+    height: 4rem;
+    border-width: 0.4rem;
+    color: #1B365C;
+}
+.card-mosaic {
+    margin-top: 5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 2rem;
+    padding: 2rem 4rem;
+    justify-content: center;
+}
+
+.card-item {
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s ease;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+    .card-item:hover {
+        transform: scale(1.55);
+    }
+
+        .card-item:hover .card-name {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+
+/* Imagen de la carta */
+.card-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Nombre de la carta */
+.card-name {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: #333;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}

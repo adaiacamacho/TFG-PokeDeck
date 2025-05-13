@@ -1,6 +1,223 @@
 ﻿@page "/favoritos"
+@using ModeloCard;
+@using ModeloCartas;
 <h3>Favoritos</h3>
 
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-3" style="gap: 10px;">
+	<div class="d-flex align-items-center" style="gap: 10px;">
+		<div class="btn-group" role="group">
+			<button type="button"
+					class="btn @(vistaMosaico ? "btn-primary" : "btn-outline-secondary")"
+					@onclick="@(() => CambiarVista(true))">
+				<i class="bi bi-grid-3x3-gap"></i>
+			</button>
+			<button type="button"
+					class="btn @(!vistaMosaico ? "btn-primary" : "btn-outline-secondary")"
+					@onclick="@(() => CambiarVista(false))">
+				<i class="bi bi-list-ul"></i>
+			</button>
+		</div>
+		<form class="d-flex" role="search" @onsubmit="CargarCartasFiltradas">
+			<input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" @bind="nombreBuscar">
+			<button class="btn btn-outline-success" type="submit">
+				<i class="bi bi-search"></i>
+			</button>
+		</form>
+	</div>
+</div>
+<br /><br />
+<input @ref="top" style="position:absolute; top:0; left:0; opacity:0;" />
+@if (estaCargando)
+{
+	<div class="loading-container">
+		<div class="spinner-border custom-spinner" role="status">
+			<span class="visually-hidden">Cargando...</span>
+		</div>
+		<h4 class="loading-text">Cargando cartas...</h4>
+	</div>
+}
+else if (cartas == null)
+{
+	<div>
+		<h4>No hay cartas.</h4>
+	</div>
+}
+else if (!cartasFiltradas.Any())
+{
+	<div>
+		<h4>No hay cartas que coincidan.</h4>
+	</div>
+}
+else
+{
+	<!-- Paginación top -->
+	<div class="pagination-container d-flex justify-content-center align-items-center my-4 gap-3">
+		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
+				@onclick="IrPaginaAnterior"
+				disabled="@(!PuedeIrPaginaAnterior)">
+			<i class="bi bi-arrow-left-circle me-2"></i>Anterior
+		</button>
+
+		<span class="fs-5 fw-semibold">Página @paginaActual de @totalPaginas</span>
+
+		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
+				@onclick="IrPaginaSiguiente"
+				disabled="@(!PuedeIrPaginaSiguiente)">
+			Siguiente<i class="bi bi-arrow-right-circle ms-2"></i>
+		</button>
+	</div>
+
+
+
+	<!-- MOSTRAR CARTAS -->
+	@if (vistaMosaico)
+	{
+		<!-- Vista mosaico -->
+		<div class="card-mosaic">
+			@foreach (var carta in cartasFiltradas)
+			{
+				<div class="card-item position-relative">
+					<img src="@carta.images.large" alt="@carta.name" class="card-image" />
+					<div class="card-name">@carta.name</div>
+				</div>
+
+			}
+		</div>
+	}
+	else
+	{
+		<!-- Vista lista -->
+		<table class="table table-striped table-hover mt-3">
+			<thead class="table-dark">
+				<tr>
+					<th>Imagen</th>
+					<th>Nombre</th>
+					<th>Tipo</th>
+					<th>Rareza</th>
+					<th>Debilidad</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var carta in cartasFiltradas)
+				{
+					<tr>
+						<td><img src="@carta.images.small" alt="@carta.name" width="60" /></td>
+						<td>@carta.name</td>
+						<td>@(carta.types?.FirstOrDefault() ?? "-")</td>
+						<td>@(carta.rarity ?? "-")</td>
+						<td>@(carta.weaknesses?.FirstOrDefault()?.type ?? "-")</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+
+
+	<!-- Paginación bottom -->
+	<div class="pagination-container d-flex justify-content-center align-items-center my-4 gap-3">
+		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
+				@onclick="IrPaginaAnterior"
+				disabled="@(!PuedeIrPaginaAnterior)">
+			<i class="bi bi-arrow-left-circle me-2"></i>Anterior
+		</button>
+
+		<span class="fs-5 fw-semibold">Página @paginaActual de @totalPaginas</span>
+
+		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
+				@onclick="IrPaginaSiguiente"
+				disabled="@(!PuedeIrPaginaSiguiente)">
+			Siguiente<i class="bi bi-arrow-right-circle ms-2"></i>
+		</button>
+	</div>
+}
+
+
 @code {
+	HttpClient http = new HttpClient();
+	private string nombreBuscar = "";
+	int paginaActual = 1;
+	int totalPaginas = 1;
+	int pageSize = 1;
+	private ElementReference top;
+	private bool PuedeIrPaginaSiguiente => paginaActual < totalPaginas;
+	private bool PuedeIrPaginaAnterior => paginaActual > 1;
+	Cartas? cartas;
+	List<Datum> cartasFiltradas = new();
+	bool estaCargando = false;
+	bool vistaMosaico = true;
+	protected override async Task OnInitializedAsync()
+	{
+		await CargarCartasAsync();
+	}
+
+	// Cargar cartas con paginación
+	private async Task CargarCartasAsync()
+	{
+		estaCargando = true;
+		StateHasChanged(); // fuerza actualización visual inmediata
+		try
+		{
+			var resultado = await http.GetFromJsonAsync<Cartas>(Metodos.GetCartas(nombreBuscar, "-1", "-1", "-1", 0, 0, paginaActual));
+
+			if (resultado != null)
+			{
+				cartas = resultado;
+				pageSize = cartas.pageSize;
+				totalPaginas = (int)Math.Ceiling((double)cartas.totalCount / pageSize);
+				cartasFiltradas = cartas.data.ToList();		
+			}
+		}
+		finally
+		{
+			estaCargando = false;
+			StateHasChanged();
+		}
+	}
+	private async Task CargarCartasFiltradas()
+	{
+		estaCargando = true;
+		StateHasChanged(); // fuerza actualización visual inmediata
+
+		try
+		{
+			var resultado = await http.GetFromJsonAsync<Cartas>(Metodos.GetCartas(nombreBuscar, "-1", "-1", "-1", 0, 0, paginaActual));
+
+			if (resultado != null)
+			{
+				cartas = resultado;
+				pageSize = cartas.pageSize;
+				totalPaginas = (int)Math.Ceiling((double)cartas.totalCount / pageSize);
+				cartasFiltradas = cartas.data.ToList();
+			}
+		}
+		finally
+		{
+			estaCargando = false;
+			StateHasChanged();
+		}
+	}
+	void CambiarVista(bool mosaico)
+	{
+		vistaMosaico = mosaico;
+	}
+	private async Task IrPaginaSiguiente()
+	{
+		if (paginaActual < totalPaginas)
+		{
+			paginaActual++;
+			await CargarCartasAsync();
+			await top.FocusAsync();
+		}
+	}
+
+	private async Task IrPaginaAnterior()
+	{
+		if (paginaActual > 1)
+		{
+			paginaActual--;
+			await CargarCartasAsync();
+			await top.FocusAsync();
+		}
+	}
 
 }

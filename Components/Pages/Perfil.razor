@@ -84,8 +84,8 @@
 		email = user.email;
 		usuario = user.usuario1;
 		id = user.id;
-		var temp = await ImagenService.GetById((int)user.idImagen);
-		img = Metodos.ImagenParse(temp.Imagen);
+		var temp = await ImagenService.GetById((int)user.idImagen!);
+		img = Metodos.ImagenParse(temp.Imagen!);
 
 	}
 	public async Task guardar()
@@ -96,7 +96,7 @@
 		user.usuario1 = usuario;
 		user.idImagen = user.idImagen;
 		await UsuarioService.Update(id, user);
-		App.Current!.MainPage!.DisplayAlert("Perfil", "Datos actualizados con éxito.", "OK");
+		await App.Current!.MainPage!.DisplayAlert("Perfil", "Datos actualizados con éxito.", "OK");
 		nav.NavigateTo("/perfil", true);
 	}
 	public void logoff()
