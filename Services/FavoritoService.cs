@@ -29,10 +29,10 @@ namespace PokeDeck.Services
             return await _http.GetFromJsonAsync<FavoritoDB>($"{apiUrl}/{id}");
         }
 
-        public async Task<bool> Add(FavoritoDB item)
+        public async Task<HttpResponseMessage> Add(FavoritoDB item)
         {
             var response = await _http.PostAsJsonAsync(apiUrl, item);
-            return response.IsSuccessStatusCode;
+            return response;
         }
 
         public async Task<bool> Update(int id, FavoritoDB item)

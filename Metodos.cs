@@ -12,9 +12,10 @@ namespace PokeDeck
         public static bool perfil=false;
         public static string SelectedLanguage = "es";
 
-        //obtener cartas        
-        //https://api.pokemontcg.io/v2/cards?q=name:** AND types:** AND weaknesses.type:** AND cardmarket.prices.trendPrice:[minimo TO maximo]&page=pagina&pageSize=250
+           
+        //https://api.pokemontcg.io/v2/cards
 
+        //obtener cartas     
         public static string GetCartas(string nombre, string tipo, string debilidad, string rareza, float minimo, float maximo, int pagina)
         {
             string precioMax = "*";
@@ -56,6 +57,12 @@ namespace PokeDeck
         public static string GetCarta(string id)
         {
             return "https://api.pokemontcg.io/v2/cards/"+id;
+        }
+        public static string GetCartasID(List<string> ListaIDs)
+        {
+            string query = string.Join(" OR ", ListaIDs.Select(id => $"id:{id}"));
+            
+            return $"https://api.pokemontcg.io/v2/cards?q={Uri.EscapeDataString(query)}";
         }
 
         public static void ChangeLanguage(ChangeEventArgs e)

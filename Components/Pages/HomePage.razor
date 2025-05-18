@@ -1,6 +1,20 @@
 ﻿@page "/"
 @using ModeloCard;
 @using ModeloCartas;
+@using System.Net;
+@using ModelosBD;
+@using Services;
+@using System.Net;
+
+
+<!-- Mensaje error añadir favorito: usuario no logueado -->
+@if (!string.IsNullOrEmpty(alertaMensaje))
+{
+	<div class="alert @alertaClase alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3 shadow"
+		 style="z-index:9999; min-width: 300px;" role="alert">
+		@alertaMensaje
+	</div>
+}
 
 <!-- CONTENEDOR PRINCIPAL: FILTROS IZQUIERDA | VISTA Y BUSQUEDA DERECHA -->
 <div class="d-flex justify-content-between align-items-center flex-wrap mb-3" style="gap: 10px;">
@@ -130,7 +144,7 @@ else
 		</button>
 	</div>
 
-	
+
 
 	<!-- MOSTRAR CARTAS -->
 	@if (vistaMosaico)
@@ -141,7 +155,7 @@ else
 			{
 				<div class="card-item position-relative">
 					<!-- Boton añadir a favorito -->
-					<button class="favorite-btn" @onclick="() => addFavorito(carta)">
+					<button class="favorite-btn" @onclick="() => addFavorito(carta.id, idUsuarioLogueado)">
 						<i class="bi bi-heart"></i>
 					</button>
 					<img src="@carta.images.large" alt="@carta.name" class="card-image" />
@@ -214,6 +228,9 @@ else
 
 @code {
 	HttpClient http = new HttpClient();
+	FavoritoService FavoritoService = new FavoritoService(new HttpClient());
+
+	int idUsuarioLogueado;
 
 	Cartas? cartas;
 	List<Datum> cartasFiltradas = new();
@@ -229,6 +246,9 @@ else
 	private float precioMinimo = 0;
 	private float precioMaximo = 0;
 
+	//popup alerta mensaje
+	private string alertaMensaje = "";
+	private string alertaClase = "alert-info";
 
 	//paginacion
 	int paginaActual = 1;
@@ -277,6 +297,8 @@ else
 	//OnInit
 	protected override async Task OnInitializedAsync()
 	{
+		//obtener el id del usuario logueado
+		idUsuarioLogueado = (int?)AppContext.GetData("logged") ?? -1;
 		await CargarCartasAsync();
 	}
 
@@ -332,7 +354,7 @@ else
 	}
 
 	// Método para ejecutar la búsqueda por nombre
-	private async Task  CargarCartasFiltradas()
+	private async Task CargarCartasFiltradas()
 	{
 		estaCargando = true;
 		StateHasChanged(); // fuerza actualización visual inmediata
@@ -387,9 +409,53 @@ else
 		vistaMosaico = mosaico;
 	}
 
-	private void addFavorito(Datum carta)
+	//metodo para añadir una carta a la pagina de favoritos
+	private async Task addFavorito(string id, int idUser)
 	{
-		
+		if (idUser == -1)
+		{
+			await MostrarAlerta("Debes iniciar sesión para añadir favoritos.", "warning");
+			return;
+		}
+
+		FavoritoDB favorito = new FavoritoDB
+			{
+				Id = id,
+				IdUser = idUser
+			};
+
+		var response = await FavoritoService.Add(favorito);
+
+		if (response.IsSuccessStatusCode)
+		{
+			await MostrarAlerta("Favorito añadido correctamente.", "success");
+		}
+		else if (response.StatusCode == HttpStatusCode.Conflict)
+		{
+			await MostrarAlerta("Esta carta ya está en tus favoritos.", "info");
+		}
+		else
+		{
+			await MostrarAlerta("Ocurrió un error al añadir favorito.", "error");
+		}
+	}
+
+	//metodo alerta mensaje
+	private async Task MostrarAlerta(string mensaje, string tipo = "info")
+	{
+		alertaMensaje = mensaje;
+		alertaClase = tipo switch
+		{
+			"success" => "alert-success",
+			"error" => "alert-danger",
+			"warning" => "alert-warning",
+			_ => "alert-info"
+		};
+
+		StateHasChanged();
+		await Task.Delay(3000);
+		alertaMensaje = "";
+		StateHasChanged();
 	}
 
 }
