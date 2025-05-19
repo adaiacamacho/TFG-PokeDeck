@@ -171,3 +171,92 @@ body {
     opacity: 1; /* Mostrar el botón cuando se hace hover sobre la carta */
     pointer-events: auto; /* Permitir interacción con el botón */
 }
+
+/* === GENERAL BOTONES TIPO POCKET (base para todos los botones con .btn) === */
+.btn {
+    background-color: white;
+    border: none;
+    box-shadow: 3px 2px 14px rgba(0, 0, 0, 0.25), -2px -2px 6px rgba(255, 255, 255, 0.7);
+    transition: all 0.2s ease-in-out;
+    color: #444;
+}
+
+/* === BOTONES REDONDOS (buscador, vista) === */
+.btn-outline-success,
+.btn-primary,
+.btn-outline-secondary {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background-color: white;
+    color: #444;
+    box-shadow: 3px 2px 14px rgba(0, 0, 0, 0.25), -2px -2px 6px rgba(255, 255, 255, 0.7);
+}
+
+    .btn-outline-success i,
+    .btn-primary i,
+    .btn-outline-secondary i {
+        font-size: 22px;
+        color: #333;
+        pointer-events: none;
+    }
+
+    .btn-outline-success:hover,
+    .btn-primary:hover,
+    .btn-outline-secondary:hover {
+        transform: scale(1.05);
+        background-color: #ececec;
+        box-shadow: 4px 3px 18px rgba(0, 0, 0, 0.3), -2px -2px 6px rgba(255, 255, 255, 0.8);
+    }
+
+/* === BOTONES PAGINACIÓN (rectangulares redondeados) === */
+.btn-success {
+    background-color: white;
+    border: none;
+    border-radius: 28px;
+    padding: 12px 24px;
+    font-weight: 600;
+    background-color: white;
+    color: #444;
+    box-shadow: 3px 2px 14px rgba(0, 0, 0, 0.25), -2px -2px 6px rgba(255, 255, 255, 0.7);
+}
+
+    .btn-success:hover {
+        transform: translateY(-1px);
+        background-color: #ececec;
+        box-shadow: 4px 3px 20px rgba(0, 0, 0, 0.3), -2px -2px 6px rgba(255, 255, 255, 0.8);
+    }
+
+    .btn-success:disabled {
+        opacity: 0;
+        cursor: not-allowed;
+    }
+
+    .btn-success i {
+        font-size: 20px;
+        color: #444;
+    }
+
+/* === Corrección específica para botón de búsqueda por nombre (lupa) === */
+form[role="search"] .btn-outline-success {
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px;
+    min-height: 52px;
+    border-radius: 50% !important;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+
+

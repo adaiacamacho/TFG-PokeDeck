@@ -1,0 +1,57 @@
+﻿.navbar {
+    background: #f4f4f6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    margin: 10px;
+    padding: 12px 20px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 24px;
+    color: #333;
+}
+
+.navbar-nav .nav-link {
+    color: #555;
+    margin-left: 30px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    box-shadow: inset 2px 2px 5px #e0e0e0, inset -2px -2px 5px #ffffff;
+    background: #f0f0f3;
+}
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+        background: #e3e3e6;
+        color: #000;
+        box-shadow: 2px 2px 5px #d1d1d1, -2px -2px 5px #ffffff;
+    }
+
+.btn-outline-success {
+    background: #f0f0f3;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 50%;
+    box-shadow: 3px 3px 6px #d1d1d1, -3px -3px 6px #ffffff;
+    transition: 0.2s ease-in-out;
+}
+
+    .btn-outline-success:hover {
+        background: #e3e3e6;
+        transform: translateY(-2px);
+        box-shadow: 2px 2px 4px #bcbcbc, -2px -2px 4px #ffffff;
+    }
+
+.navbar-toggler {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    border: none;
+    box-shadow: inset 2px 2px 5px #cfcfcf, inset -2px -2px 5px #ffffff;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%2868, 68, 68, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
