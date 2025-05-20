@@ -79,6 +79,9 @@ else
 			@foreach (var carta in cartasFiltradas)
 			{
 				<div class="card-item position-relative">
+					<button class="favorite-btn" @onclick="() => eliminarFav(carta)">
+						<i class="bi bi-trash-fill"></i>
+					</button>
 					<img src="@carta.images.large" alt="@carta.name" class="card-image" />
 					<div class="card-name">@carta.name</div>
 				</div>
@@ -97,6 +100,7 @@ else
 					<th>Tipo</th>
 					<th>Rareza</th>
 					<th>Debilidad</th>
+					<th>Eliminar</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -108,6 +112,11 @@ else
 						<td>@(carta.types?.FirstOrDefault() ?? "-")</td>
 						<td>@(carta.rarity ?? "-")</td>
 						<td>@(carta.weaknesses?.FirstOrDefault()?.type ?? "-")</td>
+						<td>
+							<button class="favorite-btn" @onclick="() => eliminarFav(carta)">
+								<i class="bi bi-trash-fill"></i>
+							</button>
+						</td>
 					</tr>
 				}
 			</tbody>
@@ -245,4 +254,10 @@ else
 		}
 	}
 
+	private async void eliminarFav(Datum carta)
+	{
+		//NO FUNCIONA AAAAAA
+		await favoritos.Delete(carta.id);	
+		await App.Current!.MainPage!.DisplayAlert("Favoritos", "CArta eliminada con éxito.", "OK");
+	}
 }

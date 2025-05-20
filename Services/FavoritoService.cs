@@ -24,7 +24,7 @@ namespace PokeDeck.Services
             return await _http.GetFromJsonAsync<List<FavoritoDB>>(apiUrl);
         }
 
-        public async Task<FavoritoDB> GetById(int id)
+        public async Task<FavoritoDB> GetById(string id)
         {
             return await _http.GetFromJsonAsync<FavoritoDB>($"{apiUrl}/{id}");
         }
@@ -35,13 +35,13 @@ namespace PokeDeck.Services
             return response;
         }
 
-        public async Task<bool> Update(int id, FavoritoDB item)
+        public async Task<bool> Update(string id, FavoritoDB item)
         {
             var response = await _http.PutAsJsonAsync($"{apiUrl}/{id}", item);
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(string id)
         {
             var response = await _http.DeleteAsync($"{apiUrl}/{id}");
             return response.IsSuccessStatusCode;
