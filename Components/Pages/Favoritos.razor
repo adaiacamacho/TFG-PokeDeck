@@ -144,9 +144,9 @@ else
 
 
 @code {
-		HttpClient http = new HttpClient();
-		FavoritoService favoritos = new FavoritoService(new HttpClient());
-		CartaService carser = new CartaService(new HttpClient()); 
+	HttpClient http = new HttpClient();
+	FavoritoService favoritos = new FavoritoService(new HttpClient());
+	CartaService carser = new CartaService(new HttpClient()); 
 
 	private string nombreBuscar = "";
 
@@ -179,7 +179,7 @@ else
 			List<string> listaIDs = lista.Select(f => f.Id).ToList();
 
 			var resultado = await http.GetFromJsonAsync<Cartas>(Metodos.GetCartasID(listaIDs));
-			
+
 			if (nombreBuscar == "")
 			{
 				var convertir = new List<Datum>();
@@ -256,8 +256,8 @@ else
 
 	private async void eliminarFav(Datum carta)
 	{
-		//NO FUNCIONA AAAAAA
-		await favoritos.Delete(carta.id);	
-		await App.Current!.MainPage!.DisplayAlert("Favoritos", "CArta eliminada con éxito.", "OK");
+		var res= await favoritos.Delete(carta.id);
+		await App.Current!.MainPage!.DisplayAlert("Favoritos", "Carta eliminada con éxito.", "OK");
+		await CargarCartasAsync();
 	}
 }
