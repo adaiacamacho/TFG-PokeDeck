@@ -2,6 +2,8 @@
 @using ModeloCartas;
 @using Services;
 @using ModelosBD;
+@using ClaseIdiomas;
+@inject LocalizationResourceManager loc;
 <h3>Favoritos</h3>
 
 <div class="d-flex justify-content-between align-items-center flex-wrap mb-3" style="gap: 10px;float:right;">
@@ -46,7 +48,7 @@ else if (cartas == null)
 else if (!cartasFiltradas.Any())
 {
 	<div>
-		<h4>No hay cartas que coincidan.</h4>
+		<h4>No hay cartas marcadas como favorito.</h4>
 	</div>
 }
 else
@@ -161,11 +163,27 @@ else
 	bool estaCargando = false;
 	bool vistaMosaico = true;
 
+	int idioma = 0;
+
 	protected override async Task OnInitializedAsync()
 	{
+		var user = await UsuarioService.GetById(int.Parse(AppContext.GetData("logged")!.ToString()!));
+		idioma = user.idIdioma;
+		loc.SetIdioma(idioma switch
+		{
+			1 => "es",
+			2 => "eu",
+			3 => "en",
+			_ => "es"
+		});
 		await CargarCartasAsync();
+		loc.OnLanguageChanged += OnLanguageChanged;
 	}
 
+	private void OnLanguageChanged()
+	{
+		InvokeAsync(StateHasChanged);
+	}
 	// Cargar cartas con paginación
 	private async Task CargarCartasAsync()
 	{
@@ -211,6 +229,13 @@ else
 		{
 			estaCargando = false;
 			StateHasChanged();
+			loc.SetIdioma(idioma switch
+			{
+				1 => "es",
+				2 => "eu",
+				3 => "en",
+				_ => "es"
+			});
 		}
 	}
 
@@ -227,6 +252,13 @@ else
 		{
 			estaCargando = false;
 			StateHasChanged();
+			loc.SetIdioma(idioma switch
+			{
+				1 => "es",
+				2 => "eu",
+				3 => "en",
+				_ => "es"
+			});
 		}
 	}
 	void CambiarVista(bool mosaico)

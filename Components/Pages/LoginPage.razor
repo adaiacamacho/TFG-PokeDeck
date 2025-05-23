@@ -1,6 +1,8 @@
 ﻿@page "/login"
 @using ModelosBD;
 @using Services;
+@using ClaseIdiomas;
+@inject LocalizationResourceManager loc;
 @inject NavigationManager Navigation;
 
 <div class="container mt-5">
@@ -41,6 +43,7 @@
     protected override async Task OnInitializedAsync()
     {
         users = await UsuarioService.GetAll();
+        loc.OnLanguageChanged += OnLanguageChanged;
     }
 
 
@@ -53,8 +56,16 @@
                 if (item.contrasena.Equals(con))
                 {
                     Metodos.perfil = true;
-                    App.Current!.MainPage!.DisplayAlert("Login", "Sesion inciada con éxito.", "OK");
+                   
                     AppContext.SetData("logged",item.id);
+                    loc.SetIdioma(item.idIdioma switch
+                    {
+                        1=>"es",
+                        2=>"eu",
+                        3=>"en",
+                        _=>"es"
+                    }); 
+                    App.Current!.MainPage!.DisplayAlert("Login", "Sesion inciada con éxito.", "OK");
                     Navigation.NavigateTo("/", true);
                     return;
                 }
@@ -63,5 +74,9 @@
         }
         App.Current!.MainPage!.DisplayAlert("Error", "No existe este usuario.", "OK");
         Metodos.perfil = false;
+    }
+    private void OnLanguageChanged()
+    {
+        InvokeAsync(StateHasChanged);
     }
 }

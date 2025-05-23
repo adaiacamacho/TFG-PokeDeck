@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using PokeDeck.ClaseIdiomas;
 using PokeDeck.Services;
-using System.Resources;
+
 
 namespace PokeDeck
 {
@@ -16,7 +16,7 @@ namespace PokeDeck
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
-
+            builder.Services.AddLocalization();
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddScoped<BarajaService>();
             builder.Services.AddScoped<CartaService>();
@@ -24,15 +24,15 @@ namespace PokeDeck
             builder.Services.AddScoped<IdiomaService>();
             builder.Services.AddScoped<ImagenPerfilService>();
             builder.Services.AddScoped<UsuarioService>();
-            builder.Services.AddScoped(sp => new HttpClient ());
+            builder.Services.AddScoped(sp => new HttpClient());
             builder.Services.AddSingleton(new LocalizationResourceManager(Resources.Resource.ResourceManager));
 
 
-            builder.Services.AddLocalization();
+
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

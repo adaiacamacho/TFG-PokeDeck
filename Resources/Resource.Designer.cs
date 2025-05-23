@@ -59,5 +59,185 @@ namespace PokeDeck.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Anterior.
+        /// </summary>
+        public static string ant {
+            get {
+                return ResourceManager.GetString("ant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Esta carta ya está en tus favoritos..
+        /// </summary>
+        public static string avisocon {
+            get {
+                return ResourceManager.GetString("avisocon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ocurrió un error al añadir favorito..
+        /// </summary>
+        public static string avisoerr {
+            get {
+                return ResourceManager.GetString("avisoerr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Debes iniciar sesión para añadir favoritos..
+        /// </summary>
+        public static string avisosesfav {
+            get {
+                return ResourceManager.GetString("avisosesfav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Favorito añadido correctamente..
+        /// </summary>
+        public static string avisosucc {
+            get {
+                return ResourceManager.GetString("avisosucc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Buscar....
+        /// </summary>
+        public static string buscar {
+            get {
+                return ResourceManager.GetString("buscar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Información personal.
+        /// </summary>
+        public static string datospers {
+            get {
+                return ResourceManager.GetString("datospers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a de.
+        /// </summary>
+        public static string de {
+            get {
+                return ResourceManager.GetString("de", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Debilidad.
+        /// </summary>
+        public static string deb {
+            get {
+                return ResourceManager.GetString("deb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Todos los derechos reservados..
+        /// </summary>
+        public static string derechos {
+            get {
+                return ResourceManager.GetString("derechos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Imagen.
+        /// </summary>
+        public static string img {
+            get {
+                return ResourceManager.GetString("img", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cargando cartas....
+        /// </summary>
+        public static string load {
+            get {
+                return ResourceManager.GetString("load", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No hay cartas..
+        /// </summary>
+        public static string nocard {
+            get {
+                return ResourceManager.GetString("nocard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No hay cartas que coincidan..
+        /// </summary>
+        public static string nocoin {
+            get {
+                return ResourceManager.GetString("nocoin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nombre.
+        /// </summary>
+        public static string nom {
+            get {
+                return ResourceManager.GetString("nom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Página.
+        /// </summary>
+        public static string pag {
+            get {
+                return ResourceManager.GetString("pag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Rareza.
+        /// </summary>
+        public static string rar {
+            get {
+                return ResourceManager.GetString("rar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Síguenos en:.
+        /// </summary>
+        public static string redes {
+            get {
+                return ResourceManager.GetString("redes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Siguiente.
+        /// </summary>
+        public static string sig {
+            get {
+                return ResourceManager.GetString("sig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tipo.
+        /// </summary>
+        public static string tipo {
+            get {
+                return ResourceManager.GetString("tipo", resourceCulture);
+            }
+        }
     }
 }

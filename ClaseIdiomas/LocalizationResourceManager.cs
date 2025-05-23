@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Resources;
+using Microsoft.Maui.Platform;
 
 namespace PokeDeck.ClaseIdiomas
 {
@@ -7,6 +8,7 @@ namespace PokeDeck.ClaseIdiomas
     {
         private readonly ResourceManager resourceManager;
 
+        public event Action? OnLanguageChanged;
         public LocalizationResourceManager(ResourceManager resource)
         {
             resourceManager = resource;
@@ -23,6 +25,10 @@ namespace PokeDeck.ClaseIdiomas
         public void SetIdioma(string culture)
         {
             CultureInfo.CurrentUICulture = new CultureInfo(culture);
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(culture);
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(culture);
+            CultureInfo.CurrentCulture = new CultureInfo(culture);
+            OnLanguageChanged?.Invoke();
         }
     }
 

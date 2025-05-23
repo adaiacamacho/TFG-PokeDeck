@@ -4,13 +4,15 @@
 @using ModelosBD;
 @using Services;
 @using System.Net;
+@using ClaseIdiomas;
+@inject LocalizationResourceManager loc;
 
 
 <!-- Mensaje error añadir favorito: usuario no logueado -->
 @if (!string.IsNullOrEmpty(alertaMensaje))
 {
 	<div class="alert @alertaClase alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3 shadow"
-		 style="z-index:9999; min-width: 300px;" role="alert">
+	style="z-index:9999; min-width: 300px;" role="alert">
 		@alertaMensaje
 	</div>
 }
@@ -22,7 +24,7 @@
 	<div class="d-flex align-items-center flex-wrap" style="gap: 20px;">
 		<!-- FILTRO TIPO -->
 		<select class="form-select" style="width: 150px;" @bind="SelectedTipo">
-			<option value="-1">Tipo</option>
+			<option value="-1">@loc["tipo"]</option>
 			@if (tipos != null)
 			{
 				@foreach (string tipo in tipos)
@@ -34,7 +36,7 @@
 
 		<!-- FILTRO DEBILIDAD -->
 		<select class="form-select" style="width: 150px;" @bind="SelectedDebilidad">
-			<option value="-1">Debilidad</option>
+			<option value="-1">@loc["deb"]</option>
 			@if (debilidades != null)
 			{
 				@foreach (string deb in debilidades)
@@ -46,7 +48,7 @@
 
 		<!-- FILTRO RAREZA -->
 		<select class="form-select" style="width: 150px;" @bind="SelectedRareza">
-			<option value="-1">Rareza</option>
+			<option value="-1">@loc["rar"]</option>
 			@if (rarezas != null)
 			{
 				@foreach (string rare in rarezas)
@@ -86,7 +88,7 @@
 
 		<!-- FILTRO DE BUSQUEDA POR NOMBRE -->
 		<form class="d-flex" role="search" @onsubmit="CargarCartasFiltradas">
-			<input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" @bind="nombreBuscar">
+			<input class="form-control me-2" type="search" placeholder="@loc["buscar"]" aria-label="Search" @bind="nombreBuscar">
 			<button class="btn btn-outline-success" type="submit">
 				<i class="bi bi-search"></i>
 			</button>
@@ -109,19 +111,19 @@
 		<div class="spinner-border custom-spinner" role="status">
 			<span class="visually-hidden">Cargando...</span>
 		</div>
-		<h4 class="loading-text">Cargando cartas...</h4>
+		<h4 class="loading-text">@loc["load"]</h4>
 	</div>
 }
 else if (cartas == null)
 {
 	<div>
-		<h4>No hay cartas.</h4>
+		<h4>@loc["nocard"]</h4>
 	</div>
 }
 else if (!cartasFiltradas.Any())
 {
 	<div>
-		<h4>No hay cartas que coincidan.</h4>
+		<h4>@loc["nocoin"]</h4>
 	</div>
 }
 else
@@ -131,15 +133,15 @@ else
 		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
 		@onclick="IrPaginaAnterior"
 		disabled="@(!PuedeIrPaginaAnterior)">
-			<i class="bi bi-arrow-left-circle me-2"></i>Anterior
+			<i class="bi bi-arrow-left-circle me-2"></i>@loc["ant"]
 		</button>
 
-		<span class="fs-5 fw-semibold">Página @paginaActual de @totalPaginas</span>
+		<span class="fs-5 fw-semibold">@loc["pag"] @paginaActual @loc["de"] @totalPaginas</span>
 
 		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
 		@onclick="IrPaginaSiguiente"
 		disabled="@(!PuedeIrPaginaSiguiente)">
-			Siguiente<i class="bi bi-arrow-right-circle ms-2"></i>
+			@loc["sig"]<i class="bi bi-arrow-right-circle ms-2"></i>
 		</button>
 	</div>
 
@@ -170,11 +172,11 @@ else
 		<table class="table table-striped table-hover mt-3">
 			<thead class="table-dark">
 				<tr>
-					<th>Imagen</th>
-					<th>Nombre</th>
-					<th>Tipo</th>
-					<th>Rareza</th>
-					<th>Debilidad</th>
+					<th>@loc["img"]</th>
+					<th>@loc["nom"]</th>
+					<th>@loc["tipo"]</th>
+					<th>@loc["rar"]</th>
+					<th>@loc["deb"]</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -198,15 +200,15 @@ else
 		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
 		@onclick="IrPaginaAnterior"
 		disabled="@(!PuedeIrPaginaAnterior)">
-			<i class="bi bi-arrow-left-circle me-2"></i>Anterior
+			<i class="bi bi-arrow-left-circle me-2"></i>@loc["ant"]
 		</button>
 
-		<span class="fs-5 fw-semibold">Página @paginaActual de @totalPaginas</span>
+		<span class="fs-5 fw-semibold">@loc["pag"] @paginaActual @loc["de"] @totalPaginas</span>
 
 		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
 		@onclick="IrPaginaSiguiente"
 		disabled="@(!PuedeIrPaginaSiguiente)">
-			Siguiente<i class="bi bi-arrow-right-circle ms-2"></i>
+			@loc["sig"]<i class="bi bi-arrow-right-circle ms-2"></i>
 		</button>
 	</div>
 }
@@ -214,9 +216,9 @@ else
 <!-- Footer -->
 <footer class="py-4 bg-dark text-white">
 	<div class="container text-center">
-		<p class="mb-0">© 2025 PokeDeck. Todos los derechos reservados.</p>
+		<p class="mb-0">© 2025 PokeDeck. @loc["derechos"]</p>
 		<p class="mb-0">
-			Síguenos en:
+			@loc["redes"]
 			<a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
 			<a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
 			<a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
@@ -293,14 +295,30 @@ else
 	private string selectedDebilidad = "-1";
 	private string selectedRareza = "-1";
 
+	int idioma = 0;
+
 	//OnInit
 	protected override async Task OnInitializedAsync()
 	{
 		//obtener el id del usuario logueado
 		idUsuarioLogueado = (int?)AppContext.GetData("logged") ?? -1;
+		var user = await UsuarioService.GetById(int.Parse(AppContext.GetData("logged")!.ToString()!));
+		idioma = user.idIdioma;
+		loc.SetIdioma(idioma switch
+		{
+			1 => "es",
+			2 => "eu",
+			3 => "en",
+			_ => "es"
+		});
+		loc.OnLanguageChanged += OnLanguageChanged;
 		await CargarCartasAsync();
 	}
 
+	private void OnLanguageChanged()
+	{
+		InvokeAsync(StateHasChanged);
+	}
 	// Cargar cartas con paginación
 	private async Task CargarCartasAsync()
 	{
@@ -349,6 +367,13 @@ else
 		{
 			estaCargando = false;
 			StateHasChanged();
+			loc.SetIdioma(idioma switch
+			{
+				1 => "es",
+				2 => "eu",
+				3 => "en",
+				_ => "es"
+			});
 		}
 	}
 
@@ -374,6 +399,13 @@ else
 		{
 			estaCargando = false;
 			StateHasChanged();
+			loc.SetIdioma(idioma switch
+			{
+				1 => "es",
+				2 => "eu",
+				3 => "en",
+				_ => "es"
+			});
 		}
 	}
 
@@ -413,7 +445,7 @@ else
 	{
 		if (idUser == -1)
 		{
-			await MostrarAlerta("Debes iniciar sesión para añadir favoritos.", "warning");
+			await MostrarAlerta(loc["avisosesfav"], "warning");
 			return;
 		}
 
@@ -427,15 +459,15 @@ else
 
 		if (response.IsSuccessStatusCode)
 		{
-			await MostrarAlerta("Favorito añadido correctamente.", "success");
+			await MostrarAlerta(loc["avisosucc"], "success");
 		}
 		else if (response.StatusCode == HttpStatusCode.Conflict)
 		{
-			await MostrarAlerta("Esta carta ya está en tus favoritos.", "info");
+			await MostrarAlerta(loc["avisocon"], "info");
 		}
 		else
 		{
-			await MostrarAlerta("Ocurrió un error al añadir favorito.", "error");
+			await MostrarAlerta(loc["avisoerr"], "error");
 		}
 	}
 

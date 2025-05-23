@@ -1,8 +1,11 @@
 ﻿@page "/perfil"
 @inject HttpClient http;
 @inject NavigationManager nav;
+@using ClaseIdiomas;
+@inject LocalizationResourceManager loc;
 @using ModelosBD;
 @using Services;
+@using System.Globalization
 <div class="bg-light">
 	<div class="container py-5">
 		<div class="row justify-content-center">
@@ -27,7 +30,7 @@
 								<div class="p-4">
 									<!-- Personal Information -->
 									<div class="mb-4" style="justify-items:center">
-										<h5 class="mb-4">Personal Information</h5>
+										<h5 class="mb-4">@loc["datospers"]</h5>
 										<div class="row g-3 row-cols-md-1">
 											<div class="col-md-6">
 												<label class="form-label">First Name</label>
@@ -71,7 +74,6 @@
 </div>
 
 
-
 @code {
 	UsuarioService UsuarioService = new UsuarioService(new HttpClient());
 	ImagenPerfilService ImagenService = new ImagenPerfilService(new HttpClient());
@@ -84,6 +86,10 @@
 	string img = "";
 	int idioma = 1;
 
+	private void OnLanguageChanged()
+	{
+		InvokeAsync(StateHasChanged);
+	}
 	protected override async Task OnInitializedAsync()
 	{
 		user = await UsuarioService.GetById(int.Parse(AppContext.GetData("logged")!.ToString()!));
@@ -93,9 +99,17 @@
 		usuario = user.usuario1;
 		id = user.id;
 		idioma = user.idIdioma;
+		loc.SetIdioma(idioma switch
+		{
+			1 => "es",
+			2 => "eu",
+			3 => "en",
+			_ => "es"
+		});
 		var temp = await ImagenService.GetById((int)user.idImagen!);
 		img = Metodos.ImagenParse(temp.Imagen!);
-
+		loc.OnLanguageChanged += OnLanguageChanged;
+		
 	}
 	public async Task guardar()
 	{
@@ -105,6 +119,13 @@
 		user.usuario1 = usuario;
 		user.idImagen = user.idImagen;
 		user.idIdioma = idioma;
+		loc.SetIdioma(idioma switch
+		{
+			1 => "es",
+			2 => "eu",
+			3 => "en",
+			_ => "es"
+		});
 		await UsuarioService.Update(id, user);
 		await App.Current!.MainPage!.DisplayAlert("Perfil", "Datos actualizados con éxito.", "OK");
 		nav.NavigateTo("/perfil", true);
@@ -113,6 +134,7 @@
 	{
 		AppContext.SetData("logged", null);
 		Metodos.perfil = false;
+		loc.SetIdioma("es");
 		App.Current!.MainPage!.DisplayAlert("Logout", "Sesion cerrada con éxito.", "OK");
 		nav.NavigateTo("/", true);
 	}

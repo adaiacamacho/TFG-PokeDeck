@@ -81,9 +81,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Resources\Resource.en.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resource.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>Resource.Designer.cs</LastGenOutput>
@@ -91,6 +88,9 @@
       <EmbeddedResource Update="Resources\Resource.eu.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>Resource.eu.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resource.en.resx">
+        <Generator></Generator>
       </EmbeddedResource>
     </ItemGroup>
 
