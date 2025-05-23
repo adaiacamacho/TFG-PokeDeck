@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using PokeDeck.ClaseIdiomas;
 using PokeDeck.Services;
+using System.Resources;
 
 namespace PokeDeck
 {
@@ -23,7 +25,10 @@ namespace PokeDeck
             builder.Services.AddScoped<ImagenPerfilService>();
             builder.Services.AddScoped<UsuarioService>();
             builder.Services.AddScoped(sp => new HttpClient ());
+            builder.Services.AddSingleton(new LocalizationResourceManager(Resources.Resource.ResourceManager));
 
+
+            builder.Services.AddLocalization();
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();

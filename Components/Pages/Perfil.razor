@@ -45,8 +45,15 @@
 												<label class="form-label">Usuario</label>
 												<input type="email" class="form-control" @bind=usuario>
 											</div>
+											<div class="col-md">
+												<label class="form-label">Idioma de preferencia</label>
+												<select class="form-select" @bind=idioma>
+													<option value="1">Español</option>
+													<option value="2">Euskera</option>
+													<option value="3">English</option>
+												</select>
+											</div>
 											<div class="d-flex gap-2">
-
 												<button type="button" class="btn btn-danger" @onclick=logoff>Cerrar sesión</button>
 												<button type="button" class="btn btn-success flex-grow-1" @onclick=guardar>Guardar cambios</button>					
 											</div>
@@ -75,6 +82,7 @@
 	string usuario = "";
 	int id = -1;
 	string img = "";
+	int idioma = 1;
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -84,6 +92,7 @@
 		email = user.email;
 		usuario = user.usuario1;
 		id = user.id;
+		idioma = user.idIdioma;
 		var temp = await ImagenService.GetById((int)user.idImagen!);
 		img = Metodos.ImagenParse(temp.Imagen!);
 
@@ -95,6 +104,7 @@
 		user.apellido = apellido;
 		user.usuario1 = usuario;
 		user.idImagen = user.idImagen;
+		user.idIdioma = idioma;
 		await UsuarioService.Update(id, user);
 		await App.Current!.MainPage!.DisplayAlert("Perfil", "Datos actualizados con éxito.", "OK");
 		nav.NavigateTo("/perfil", true);
