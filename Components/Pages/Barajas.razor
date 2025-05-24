@@ -1,38 +1,123 @@
 ﻿@page "/barajas"
 @using ClaseIdiomas;
-@inject LocalizationResourceManager loc;
-<h3>Tus barajas</h3>
-<div class="card text-bg-light mb-3" style="width: 18rem;">
-    <button class="card-img-top" style="background-color:lightgray;height:10rem" @onclick="nuevaBaraja">
-        <i class="bi bi-plus-lg" style="font-size:x-large"></i>
-    </button>  
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->        
-    </div>
-</div>
-@code {
-    int idioma = 0;
+@using PokeDeck.Services
+@using PokeDeck.ModelosBD
 
-    private void OnLanguageChanged()
-    {
-        InvokeAsync(StateHasChanged);
-    }
-    protected override async Task OnInitializedAsync()
-    {
-        var user = await UsuarioService.GetById(int.Parse(AppContext.GetData("logged")!.ToString()!));
-        idioma = user.idIdioma;
-        loc.SetIdioma(idioma switch
-        {
-            1 => "es",
-            2 => "eu",
-            3 => "en",
-            _ => "es"
-        });
-        loc.OnLanguageChanged += OnLanguageChanged;
-    }
-    public void nuevaBaraja()
-    {
-        //query para nueva baraja
-    }
+@inject LocalizationResourceManager loc;
+@inject UsuarioService UsuarioService
+@inject BarajaService BarajaService
+
+<h3>Tus barajas</h3>
+<div class="d-flex flex-wrap gap-3">
+	<!-- Tarjeta nueva baraja -->
+	<div class="card shadow-sm border rounded-4 p-0" style="width: 12rem; background: linear-gradient(to bottom, #f3f3f3, #dcdcdc);">
+		<button class="card-img-top d-flex align-items-center justify-content-center" style="height: 8rem; background-color:#eee; border:none;" @onclick="nuevaBaraja">
+			<i class="bi bi-plus-lg" style="font-size:2rem; color: #666;"></i>
+		</button>
+		<div class="card-body text-center">
+			<h6 class="card-title">Nueva baraja</h6>
+		</div>
+	</div>
+
+	<!-- Tarjetas de barajas existentes -->
+	@foreach (var baraja in barajas)
+	{
+				<NavLink class="card shadow-sm border rounded-4 p-0 text-decoration-none"
+				 style="width: 12rem; background: linear-gradient(to bottom, #fff, #f0f0f0); color: inherit;"
+				 href=@($"cartasBaraja/{baraja.Id}")>
+			<div class="card-img-top d-flex align-items-center justify-content-center"
+				 style="height: 8rem; background-color:#f7f7f7;">
+			</div>
+			<div class="card-body text-center">
+				<h6 class="card-title">@baraja.Nombre</h6>
+			</div>
+		</NavLink>
+
+	}
+</div>
+
+<!-- Modal de Bootstrap -->
+<div class="modal fade @(mostrarDialogo ? "show d-block" : "")" tabindex="-1" style="background-color: rgba(0,0,0,0.5);" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Nueva baraja</h5>
+				<button type="button" class="btn-close" aria-label="Close" @onclick="() => mostrarDialogo = false"></button>
+			</div>
+			<div class="modal-body">
+				<div class="mb-3">
+					<label for="nombreBaraja" class="form-label">Nombre</label>
+					<InputText id="nombreBaraja" class="form-control" @bind-Value="nuevoNombre" />
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" @onclick="() => mostrarDialogo = false">Cancelar</button>
+				<button type="button" class="btn btn-primary" @onclick="CrearBaraja">Crear</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@code {
+	int idioma = 0;
+	bool mostrarDialogo = false;
+	string nuevoNombre = string.Empty;
+	List<BarajaDB> barajas = new();
+
+	private void OnLanguageChanged()
+	{
+		InvokeAsync(StateHasChanged);
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		var user = await UsuarioService.GetById(int.Parse(AppContext.GetData("logged")!.ToString()!));
+		idioma = user.idIdioma;
+		loc.SetIdioma(idioma switch
+		{
+			1 => "es",
+			2 => "eu",
+			3 => "en",
+			_ => "es"
+		});
+		loc.OnLanguageChanged += OnLanguageChanged;
+
+		await CargarBarajas();
+	}
+
+	private async Task CargarBarajas()
+	{
+		var userId = int.Parse(AppContext.GetData("logged")!.ToString()!);
+		barajas = await BarajaService.GetByUserId(userId);
+	}
+
+	public void nuevaBaraja()
+	{
+		mostrarDialogo = true;
+	}
+
+	public async Task CrearBaraja()
+	{
+		if (string.IsNullOrWhiteSpace(nuevoNombre)) return;
+
+		var userId = int.Parse(AppContext.GetData("logged")!.ToString()!);
+		var nueva = new BarajaDB
+			{
+				IdUser = userId,
+				FechaCreacion = DateOnly.FromDateTime(DateTime.Now),
+				Nombre = nuevoNombre
+			};
+
+		var exito = await BarajaService.Add(nueva);
+		if (exito)
+		{
+			barajas.Add(nueva);
+			nuevoNombre = string.Empty;
+			mostrarDialogo = false;
+		}
+		else
+		{
+			// Manejo de error
+		}
+	}
 }

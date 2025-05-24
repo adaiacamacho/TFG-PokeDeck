@@ -54,10 +54,13 @@ namespace PokeDeck
             return "https://api.pokemontcg.io/v2/rarities";
         }
 
+        //obtener una carta en base a su id
         public static string GetCarta(string id)
         {
             return "https://api.pokemontcg.io/v2/cards/"+id;
         }
+
+        //obtener cartas en base a una lista de IDs
         public static string GetCartasID(List<string> ListaIDs)
         {
             string query = string.Join(" OR ", ListaIDs.Select(id => $"id:{id}"));

@@ -8,10 +8,10 @@ namespace PokeDeck.ModelosBD
 {
     public class CartaDB
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public int IdBaraja { get; set; }
 
-        public object  IdBarajaNavigation { get; set; } = null!;
+        //public object IdBarajaNavigation { get; set; }
     }
 }

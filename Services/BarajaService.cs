@@ -24,6 +24,13 @@ namespace PokeDeck.Services
             return await _http.GetFromJsonAsync<List<BarajaDB>>(apiUrl);
         }
 
+        //obtener barajas en base al id del user logeado
+        public async Task<List<BarajaDB>> GetByUserId(int userId)
+        {
+            return await _http.GetFromJsonAsync<List<BarajaDB>>($"{apiUrl}/usuario/{userId}");
+        }
+
+
         public async Task<BarajaDB> GetById(int id)
         {
             return await _http.GetFromJsonAsync<BarajaDB>($"{apiUrl}/{id}");

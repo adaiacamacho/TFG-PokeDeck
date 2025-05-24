@@ -6,6 +6,8 @@
 @using System.Net;
 @using ClaseIdiomas;
 @inject LocalizationResourceManager loc;
+@inject UsuarioService UsuarioService
+
 
 
 <!-- Mensaje error añadir favorito: usuario no logueado -->
@@ -301,9 +303,19 @@ else
 	protected override async Task OnInitializedAsync()
 	{
 		//obtener el id del usuario logueado
-		idUsuarioLogueado = (int?)AppContext.GetData("logged") ?? -1;
-		var user = await UsuarioService.GetById(int.Parse(AppContext.GetData("logged")!.ToString()!));
-		idioma = user.idIdioma;
+		var loggedRaw = AppContext.GetData("logged");
+		if (loggedRaw == null)
+		{
+			idUsuarioLogueado = -1;
+			idioma = 1; // español por defecto
+		}
+		else
+		{
+			idUsuarioLogueado = int.Parse(loggedRaw.ToString()!);
+			var user = await UsuarioService.GetById(idUsuarioLogueado);
+			idioma = user.idIdioma;
+		}
+
 		loc.SetIdioma(idioma switch
 		{
 			1 => "es",

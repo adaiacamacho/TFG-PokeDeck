@@ -121,7 +121,7 @@
     <value>Aurrekoa</value>
   </data>
   <data name="avisocon" xml:space="preserve">
-    <value>Gutun hau zure gogokoenetan dago.</value>
+    <value>Karta hau zure gogokoenetan dago.</value>
   </data>
   <data name="avisoerr" xml:space="preserve">
     <value>Errore bat gertatu da gogokoena gehitzean.</value>
@@ -130,19 +130,19 @@
     <value>Sesioa hasi behar duzu gogokoak gehitzeko.</value>
   </data>
   <data name="avisosucc" xml:space="preserve">
-    <value>Gogokoa behar bezala gehitu da.</value>
+    <value>Gogokoa zuzenki gehitu da.</value>
   </data>
   <data name="buscar" xml:space="preserve">
     <value>Bilatu...</value>
   </data>
   <data name="datospers" xml:space="preserve">
-    <value>Informazio personala</value>
+    <value>Informazio pertsonala</value>
   </data>
   <data name="de" xml:space="preserve">
     <value>-</value>
   </data>
   <data name="deb" xml:space="preserve">
-    <value>Ahulezia</value>
+    <value>Ahultasuna</value>
   </data>
   <data name="derechos" xml:space="preserve">
     <value>Eskubide guztiak erreserbatuta.</value>
@@ -151,13 +151,13 @@
     <value>Irudia</value>
   </data>
   <data name="load" xml:space="preserve">
-    <value>Gutunak kargatzen...</value>
+    <value>Kartak kargatzen...</value>
   </data>
   <data name="nocard" xml:space="preserve">
-    <value>Ez dago gutunik.</value>
+    <value>Ez dago kartarik.</value>
   </data>
   <data name="nocoin" xml:space="preserve">
-    <value>Ez dago bat datorren gutunik.</value>
+    <value>Ez dago bat datorren kartarik.</value>
   </data>
   <data name="nom" xml:space="preserve">
     <value>Izena</value>
@@ -166,7 +166,7 @@
     <value>Orria</value>
   </data>
   <data name="rar" xml:space="preserve">
-    <value>Bitxikeria</value>
+    <value>Arrarotasuna</value>
   </data>
   <data name="redes" xml:space="preserve">
     <value>Jarraiguzu hemen:</value>
@@ -175,6 +175,6 @@
     <value>Hurrengoa</value>
   </data>
   <data name="tipo" xml:space="preserve">
-    <value>Tipo</value>
+    <value>Mota</value>
   </data>
 </root>

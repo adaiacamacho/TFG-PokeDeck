@@ -16,8 +16,8 @@ namespace PokeDeck.ModelosBD
 
         public string Nombre { get; set; }
 
-        public object[] Carta { get; set; }
+        //public object[] Carta { get; set; }
 
-        public object IdUserNavigation { get; set; }
+        public object IdUserNavigation { get; set; } = null!;
     }
 }

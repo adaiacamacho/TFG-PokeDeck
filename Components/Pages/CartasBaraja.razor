@@ -1,0 +1,171 @@
+﻿@page "/cartasBaraja/{idBaraja:int}"
+
+@using ClaseIdiomas;
+@using PokeDeck.Services
+@using PokeDeck.ModelosBD
+@using PokeDeck.ModeloCartas
+
+@inject LocalizationResourceManager loc;
+@inject UsuarioService UsuarioService
+@inject CartaService CartaService
+
+<h3>Cartas de la baraja</h3>
+
+<!-- Tarjeta para añadir nueva carta -->
+<div class="card shadow-sm border rounded-4 p-0" style="width: 12rem; height: 17rem; background: linear-gradient(to bottom, #f3f3f3, #dcdcdc); cursor: pointer;" @onclick="MostrarDialogoBusqueda">
+    <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 100%; background-color:#eee;">
+        <i class="bi bi-plus-lg" style="font-size:2rem; color: #666;"></i>
+    </div>
+</div>
+
+<!-- Mostrar las cartas de la baraja -->
+@if (cartas?.data != null && cartas.data.Any())
+{
+    <div class="card-mosaic mt-4">
+        @foreach (var group in idsCartas.GroupBy(id => id))
+        {
+            var carta = cartas.data.FirstOrDefault(c => c.id == group.Key);
+            if (carta != null)
+            {
+                for (int i = 0; i < group.Count(); i++)
+                {
+                    <div class="card-item">
+                        <img src="@carta.images.large" alt="@carta.name" class="card-image" />
+                        <div class="card-name">@carta.name</div>
+                    </div>
+                }
+            }
+        }
+    </div>
+}
+
+
+<!-- Modal de búsqueda por nombre -->
+@if (mostrarDialogo)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog" style="max-width: 1500px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Buscar cartas</h5>
+                    <button type="button" class="btn-close" @onclick="() => mostrarDialogo = false"></button>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control mb-3" placeholder="Nombre..." @bind="nombreBuscar" @bind:event="oninput" />
+                    <button class="btn btn-success mb-3" @onclick="BuscarCartas">Buscar</button>
+
+                    @if (cartasFiltradas != null && cartasFiltradas.Any())
+                    {
+                        <div class="card-mosaic">
+                            @foreach (var carta in cartasFiltradas)
+                            {
+                                <div class="card-item @(carta.id == cartaSeleccionadaId ? "selected" : null)" @onclick="() => cartaSeleccionadaId = carta.id">
+                                    <img src="@carta.images.large" alt="@carta.name" class="card-image" />
+                                    <div class="card-name">@carta.name</div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else if (cartasFiltradas != null)
+                    {
+                        <p>No se encontraron cartas con ese nombre.</p>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" @onclick="() => mostrarDialogo = false">Cerrar</button>
+                    <button class="btn btn-success" @onclick="AñadirCarta" disabled="@(string.IsNullOrEmpty(cartaSeleccionadaId))">Agregar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@code {
+    [Parameter]
+    public int idBaraja { get; set; }
+
+    HttpClient http = new HttpClient();
+
+    bool mostrarDialogo = false;
+    string nombreBuscar = "";
+    List<Datum> cartasFiltradas = new();
+    string cartaSeleccionadaId = "";
+
+    int idioma = 0;
+    List<string> idsCartas = new();
+    Cartas? cartas;
+
+    private void OnLanguageChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await UsuarioService.GetById(int.Parse(AppContext.GetData("logged")!.ToString()!));
+        idioma = user.idIdioma;
+        loc.SetIdioma(idioma switch
+        {
+            1 => "es",
+            2 => "eu",
+            3 => "en",
+            _ => "es"
+        });
+        loc.OnLanguageChanged += OnLanguageChanged;
+
+        idsCartas = await CartaService.GetCartasPorBaraja(idBaraja);
+
+        if (idsCartas.Any())
+        {
+            //obtener las cartas de la api con la lista de IDs
+            cartas = await http.GetFromJsonAsync<Cartas>(Metodos.GetCartasID(idsCartas));
+        }
+        else
+        {
+            cartas = new Cartas { data = Array.Empty<Datum>() };
+        }
+    }
+
+    //añadir la carta a la BD
+    private async Task AñadirCarta()
+    {
+        if (!string.IsNullOrEmpty(cartaSeleccionadaId))
+        {
+            var nuevaCarta = new CartaDB
+                {
+                    Id = cartaSeleccionadaId,
+                    IdBaraja = idBaraja
+                };
+
+            bool exito = await CartaService.Add(nuevaCarta);
+
+            if (exito)
+            {
+                // recarga las cartas de la baraja
+                idsCartas = await CartaService.GetCartasPorBaraja(idBaraja);
+                cartas = await http.GetFromJsonAsync<Cartas>(Metodos.GetCartasID(idsCartas));
+            }
+            mostrarDialogo = false;
+            nombreBuscar = "";
+            StateHasChanged();
+           
+        }
+    }
+
+    void MostrarDialogoBusqueda()
+    {
+        mostrarDialogo = true;
+        cartaSeleccionadaId = "";
+        nombreBuscar = "";
+        cartasFiltradas.Clear();
+    }
+
+
+    async Task BuscarCartas()
+    {
+        var url = Metodos.GetCartas(nombreBuscar, "-1", "-1", "-1", 0, 0, 1);
+        var resultado = await http.GetFromJsonAsync<Cartas>(url);
+        cartasFiltradas = resultado?.data.ToList() ?? new List<Datum>();
+    }
+}

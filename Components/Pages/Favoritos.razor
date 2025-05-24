@@ -4,6 +4,9 @@
 @using ModelosBD;
 @using ClaseIdiomas;
 @inject LocalizationResourceManager loc;
+@inject UsuarioService UsuarioService
+
+
 <h3>Favoritos</h3>
 
 <div class="d-flex justify-content-between align-items-center flex-wrap mb-3" style="gap: 10px;float:right;">
@@ -184,6 +187,7 @@ else
 	{
 		InvokeAsync(StateHasChanged);
 	}
+
 	// Cargar cartas con paginación
 	private async Task CargarCartasAsync()
 	{

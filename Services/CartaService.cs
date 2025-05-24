@@ -29,6 +29,13 @@ namespace PokeDeck.Services
             return await _http.GetFromJsonAsync<CartaDB>($"{apiUrl}/{id}");
         }
 
+        //obtener las cartas de la baraja en base al id ed la baraja
+        public async Task<List<string>> GetCartasPorBaraja(int idBaraja)
+        {
+            return await _http.GetFromJsonAsync<List<string>>($"{apiUrl}/por-baraja/{idBaraja}");
+        }
+
+        // añadir carta de una baraja a la base de datos
         public async Task<bool> Add(CartaDB item)
         {
             var response = await _http.PostAsJsonAsync(apiUrl, item);

@@ -1,0 +1,33 @@
+﻿.card-mosaic {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.card-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+    .card-item.selected {
+        border-color: #28a745;
+        box-shadow: 0 0 10px #28a745;
+    }
+
+.card-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.25rem;
+}
+
+.card-name {
+    margin-top: 0.5rem;
+    font-weight: 600;
+    text-align: center;
+}
