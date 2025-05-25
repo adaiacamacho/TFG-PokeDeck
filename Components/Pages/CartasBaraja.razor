@@ -9,7 +9,7 @@
 @inject UsuarioService UsuarioService
 @inject CartaService CartaService
 
-<h3>Cartas de la baraja</h3>
+<h3>@loc["barcards"]</h3>
 
 <!-- Tarjeta para añadir nueva carta -->
 <div class="card shadow-sm border rounded-4 p-0" style="width: 12rem; height: 17rem; background: linear-gradient(to bottom, #f3f3f3, #dcdcdc); cursor: pointer;" @onclick="MostrarDialogoBusqueda">
@@ -47,12 +47,12 @@
         <div class="modal-dialog" style="max-width: 1500px;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Buscar cartas</h5>
+                    <h5 class="modal-title">@loc["buscarcartas"]</h5>
                     <button type="button" class="btn-close" @onclick="() => mostrarDialogo = false"></button>
                 </div>
                 <div class="modal-body">
-                    <input class="form-control mb-3" placeholder="Nombre..." @bind="nombreBuscar" @bind:event="oninput" />
-                    <button class="btn btn-success mb-3" @onclick="BuscarCartas">Buscar</button>
+                    <input class="form-control mb-3" placeholder="@loc["nom"]..." @bind="nombreBuscar" @bind:event="oninput" />
+                    <button class="btn btn-success mb-3" @onclick="BuscarCartas">@loc["search"]</button>
 
                     @if (cartasFiltradas != null && cartasFiltradas.Any())
                     {
@@ -68,12 +68,12 @@
                     }
                     else if (cartasFiltradas != null)
                     {
-                        <p>No se encontraron cartas con ese nombre.</p>
+                        <p>@loc["nocard2"]</p>
                     }
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" @onclick="() => mostrarDialogo = false">Cerrar</button>
-                    <button class="btn btn-success" @onclick="AñadirCarta" disabled="@(string.IsNullOrEmpty(cartaSeleccionadaId))">Agregar</button>
+                    <button class="btn btn-secondary" @onclick="() => mostrarDialogo = false">@loc["close"]</button>
+                    <button class="btn btn-success" @onclick="AñadirCarta" disabled="@(string.IsNullOrEmpty(cartaSeleccionadaId))">@loc["agregar"]</button>
                 </div>
             </div>
         </div>
@@ -149,7 +149,13 @@
             mostrarDialogo = false;
             nombreBuscar = "";
             StateHasChanged();
-           
+            loc.SetIdioma(idioma switch
+            {
+                1 => "es",
+                2 => "eu",
+                3 => "en",
+                _ => "es"
+            });
         }
     }
 

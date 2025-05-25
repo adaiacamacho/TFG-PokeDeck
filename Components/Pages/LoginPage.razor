@@ -56,7 +56,7 @@
                 if (item.contrasena.Equals(con))
                 {
                     Metodos.perfil = true;
-                   
+
                     AppContext.SetData("logged",item.id);
                     loc.SetIdioma(item.idIdioma switch
                     {
@@ -64,7 +64,7 @@
                         2=>"eu",
                         3=>"en",
                         _=>"es"
-                    }); 
+                    });         
                     App.Current!.MainPage!.DisplayAlert("Login", "Sesion inciada con éxito.", "OK");
                     Navigation.NavigateTo("/", true);
                     return;

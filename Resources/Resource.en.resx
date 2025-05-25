@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="agregar" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="ant" xml:space="preserve">
     <value>Previous</value>
+  </data>
+  <data name="ape" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="aviso" xml:space="preserve">
+    <value>Warning</value>
   </data>
   <data name="avisocon" xml:space="preserve">
     <value>This card is already in your favorites.</value>
@@ -132,8 +141,26 @@
   <data name="avisosucc" xml:space="preserve">
     <value>Favorite added succesfully.</value>
   </data>
+  <data name="barajas" xml:space="preserve">
+    <value>Decks</value>
+  </data>
+  <data name="barcards" xml:space="preserve">
+    <value>Deck's cards</value>
+  </data>
   <data name="buscar" xml:space="preserve">
-    <value>Search...</value>
+    <value>Search</value>
+  </data>
+  <data name="buscarcartas" xml:space="preserve">
+    <value>Search cards</value>
+  </data>
+  <data name="cancelar" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="crear" xml:space="preserve">
+    <value>Create</value>
   </data>
   <data name="datospers" xml:space="preserve">
     <value>Personal information</value>
@@ -144,17 +171,47 @@
   <data name="deb" xml:space="preserve">
     <value>Weakness</value>
   </data>
+  <data name="delcard" xml:space="preserve">
+    <value>Card deleted succesfully.</value>
+  </data>
   <data name="derechos" xml:space="preserve">
     <value>All rights reserved.</value>
+  </data>
+  <data name="eliminar" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="fav" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="guardaraviso" xml:space="preserve">
+    <value>Data succesfully updated.</value>
   </data>
   <data name="img" xml:space="preserve">
     <value>Image</value>
   </data>
+  <data name="inicio" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="lang" xml:space="preserve">
+    <value>Preferred language</value>
+  </data>
   <data name="load" xml:space="preserve">
     <value>Loading cards...</value>
   </data>
+  <data name="logoff" xml:space="preserve">
+    <value>Log off</value>
+  </data>
+  <data name="needlogin" xml:space="preserve">
+    <value>You need to login in order to access this feature.</value>
+  </data>
+  <data name="newbaraja" xml:space="preserve">
+    <value>New deck</value>
+  </data>
   <data name="nocard" xml:space="preserve">
     <value>There´s no cards.</value>
+  </data>
+  <data name="nocard2" xml:space="preserve">
+    <value>No cards found with that name.</value>
   </data>
   <data name="nocoin" xml:space="preserve">
     <value>No cards match the criteria.</value>
@@ -162,8 +219,20 @@
   <data name="nom" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="nomperf" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="offaviso" xml:space="preserve">
+    <value>Logged off succesfully.</value>
+  </data>
   <data name="pag" xml:space="preserve">
     <value>Page</value>
+  </data>
+  <data name="perfil" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="precio" xml:space="preserve">
+    <value>Price:</value>
   </data>
   <data name="rar" xml:space="preserve">
     <value>Rarity</value>
@@ -171,10 +240,19 @@
   <data name="redes" xml:space="preserve">
     <value>Follow us:</value>
   </data>
+  <data name="save" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
   <data name="sig" xml:space="preserve">
     <value>Next</value>
   </data>
   <data name="tipo" xml:space="preserve">
     <value>Type</value>
+  </data>
+  <data name="tusbar" xml:space="preserve">
+    <value>Your decks</value>
+  </data>
+  <data name="user" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

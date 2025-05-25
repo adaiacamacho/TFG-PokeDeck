@@ -62,7 +62,7 @@
 
 		<!-- FILTRO PRECIO -->
 		<div class="d-flex align-items-center" style="gap: 5px;">
-			<span class="fw-semibold text-secondary">Precio:</span>
+			<span class="fw-semibold text-secondary">@loc["precio"]</span>
 			<input class="form-control" style="width:90px;" placeholder="min." @bind="precioMinimo" type="number" step="0.01" />
 			<span>-</span>
 			<input class="form-control" style="width:90px;" placeholder="max." @bind="precioMaximo" type="number" step="0.01" />
@@ -90,7 +90,7 @@
 
 		<!-- FILTRO DE BUSQUEDA POR NOMBRE -->
 		<form class="d-flex" role="search" @onsubmit="CargarCartasFiltradas">
-			<input class="form-control me-2" type="search" placeholder="@loc["buscar"]" aria-label="Search" @bind="nombreBuscar">
+			<input class="form-control me-2" type="search" placeholder="@loc["buscar"]..." aria-label="Search" @bind="nombreBuscar">
 			<button class="btn btn-outline-success" type="submit">
 				<i class="bi bi-search"></i>
 			</button>

@@ -1,4 +1,6 @@
-﻿<nav class="navbar navbar-expand-lg custom-navbar shadow-lg px-4 py-3">
+﻿@using ClaseIdiomas;
+@inject LocalizationResourceManager loc;
+<nav class="navbar navbar-expand-lg custom-navbar shadow-lg px-4 py-3">
     <div class="container-fluid">
         <a class="navbar-brand text-gradient" href="#">
             <img src="logo.png" alt="Logo" style="width: 150px;" />
@@ -14,20 +16,20 @@
             <ul class="navbar-nav d-flex align-items-center gap-4">
                 <li class="nav-item">
                     <NavLink class="nav-link custom-link" href="" Match="NavLinkMatch.All">
-                        <i class="bi bi-house-door-fill me-2"></i>Inicio
+                        <i class="bi bi-house-door-fill me-2"></i>@loc["inicio"]
                     </NavLink>
                 </li>
                 <li class="nav-item">
                     @if (Metodos.perfil)
                     {
                         <NavLink class="nav-link custom-link" href="barajas" Match="NavLinkMatch.All">
-                            <i class="bi bi-collection me-2"></i>Barajas
+                            <i class="bi bi-collection me-2"></i>@loc["barajas"]
                         </NavLink>
                     }
                     else
                     {
                         <NavLink class="nav-link custom-link" href="" Match="NavLinkMatch.All" @onclick="aviso">
-                            <i class="bi bi-collection me-2"></i>Barajas
+                            <i class="bi bi-collection me-2"></i>@loc["barajas"]
                         </NavLink>
                     }
                 </li>
@@ -35,13 +37,13 @@
                     @if (Metodos.perfil)
                     {
                         <NavLink class="nav-link custom-link" href="favoritos" Match="NavLinkMatch.All">
-                            <i class="bi bi-heart-fill me-2"></i>Favoritos
+                            <i class="bi bi-heart-fill me-2"></i>@loc["fav"]
                         </NavLink>
                     }
                     else
                     {
                         <NavLink class="nav-link custom-link" href="" Match="NavLinkMatch.All" @onclick="aviso">
-                            <i class="bi bi-heart me-2"></i>Favoritos
+                            <i class="bi bi-heart me-2"></i>@loc["fav"]
                         </NavLink>
                     }
                 </li>
@@ -72,6 +74,6 @@
 @code {
     public void aviso()
     {
-        App.Current!.MainPage!.DisplayAlert("Aviso", "Es necesario iniciar sesión para acceder a esta función.", "OK");
+        App.Current!.MainPage!.DisplayAlert(loc["aviso"], loc["needlogin"], "OK");
     }
 }

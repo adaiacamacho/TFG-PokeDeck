@@ -7,7 +7,7 @@
 @inject UsuarioService UsuarioService
 
 
-<h3>Favoritos</h3>
+<h3>@loc["fav"]</h3>
 
 <div class="d-flex justify-content-between align-items-center flex-wrap mb-3" style="gap: 10px;float:right;">
 	<div class="d-flex align-items-center" style="gap: 10px;">
@@ -24,7 +24,7 @@
 			</button>
 		</div>
 		<form class="d-flex" role="search" @onsubmit="CargarCartasFiltradas">
-			<input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" @bind="nombreBuscar">
+			<input class="form-control me-2" type="search" placeholder="@loc["buscar"]..." aria-label="Search" @bind="nombreBuscar">
 			<button class="btn btn-outline-success" type="submit">
 				<i class="bi bi-search"></i>
 			</button>
@@ -39,19 +39,19 @@
 		<div class="spinner-border custom-spinner" role="status">
 			<span class="visually-hidden">Cargando...</span>
 		</div>
-		<h4 class="loading-text">Cargando cartas...</h4>
+		<h4 class="loading-text">@loc["load"]</h4>
 	</div>
 }
 else if (cartas == null)
 {
 	<div>
-		<h4>No hay cartas.</h4>
+		<h4>@loc["nocard"]</h4>
 	</div>
 }
 else if (!cartasFiltradas.Any())
 {
 	<div>
-		<h4>No hay cartas marcadas como favorito.</h4>
+		<h4>@loc["nocoin"]</h4>
 	</div>
 }
 else
@@ -61,15 +61,15 @@ else
 		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
 		@onclick="IrPaginaAnterior"
 		disabled="@(!PuedeIrPaginaAnterior)">
-			<i class="bi bi-arrow-left-circle me-2"></i>Anterior
+			<i class="bi bi-arrow-left-circle me-2"></i>@loc["ant"]
 		</button>
 
-		<span class="fs-5 fw-semibold">Página @paginaActual de @totalPaginas</span>
+		<span class="fs-5 fw-semibold">@loc["pag"] @paginaActual @loc["de"] @totalPaginas</span>
 
 		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
 		@onclick="IrPaginaSiguiente"
 		disabled="@(!PuedeIrPaginaSiguiente)">
-			Siguiente<i class="bi bi-arrow-right-circle ms-2"></i>
+			@loc["sig"]<i class="bi bi-arrow-right-circle ms-2"></i>
 		</button>
 	</div>
 
@@ -99,12 +99,12 @@ else
 		<table class="table table-striped table-hover mt-3">
 			<thead class="table-dark">
 				<tr>
-					<th>Imagen</th>
-					<th>Nombre</th>
-					<th>Tipo</th>
-					<th>Rareza</th>
-					<th>Debilidad</th>
-					<th>Eliminar</th>
+					<th>@loc["img"]</th>
+					<th>@loc["nom"]</th>
+					<th>@loc["tipo"]</th>
+					<th>@loc["rar"]</th>
+					<th>@loc["deb"]</th>
+					<th>@loc["eliminar"]</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -133,15 +133,15 @@ else
 		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
 		@onclick="IrPaginaAnterior"
 		disabled="@(!PuedeIrPaginaAnterior)">
-			<i class="bi bi-arrow-left-circle me-2"></i>Anterior
+			<i class="bi bi-arrow-left-circle me-2"></i>@loc["ant"]
 		</button>
 
-		<span class="fs-5 fw-semibold">Página @paginaActual de @totalPaginas</span>
+		<span class="fs-5 fw-semibold">@loc["pag"] @paginaActual @loc["de"] @totalPaginas</span>
 
 		<button class="btn btn-success px-4 py-2 rounded-pill shadow-sm"
 		@onclick="IrPaginaSiguiente"
 		disabled="@(!PuedeIrPaginaSiguiente)">
-			Siguiente<i class="bi bi-arrow-right-circle ms-2"></i>
+			@loc["sig"]<i class="bi bi-arrow-right-circle ms-2"></i>
 		</button>
 	</div>
 }
@@ -292,7 +292,7 @@ else
 	private async void eliminarFav(Datum carta)
 	{
 		var res= await favoritos.Delete(carta.id);
-		await App.Current!.MainPage!.DisplayAlert("Favoritos", "Carta eliminada con éxito.", "OK");
+		await App.Current!.MainPage!.DisplayAlert(loc["fav"], loc["delcard"], "OK");
 		await CargarCartasAsync();
 	}
 }

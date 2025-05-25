@@ -1,5 +1,7 @@
 ﻿@page "/registro"
 @inject NavigationManager nav;
+@using ClaseIdiomas;
+@inject LocalizationResourceManager loc;
 @using ModelosBD;
 @using Services;
 
@@ -31,7 +33,14 @@
                             <label for="contrasena" class="form-label">Contraseña</label>
                             <input type="contrasena" class="form-control" id="contrasena" @bind=con placeholder="Escribe una contraseña" required />
                         </div>
-
+                        <div class="col-md">
+                            <label class="form-label">@loc["lang"]</label>
+                            <select class="form-select" @bind=idioma>
+                                <option value="1">Español</option>
+                                <option value="2">Euskera</option>
+                                <option value="3">English</option>
+                            </select>
+                        </div>
                         <!-- Submit Button -->
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary btn-lg" @onclick="registrarse">Registrarse</button>
@@ -52,6 +61,7 @@
     string user;
     string con;
     int random;
+    int idioma=1;
 
 
     public async Task registrarse()
@@ -62,6 +72,8 @@
         }
         else
         {
+            var list = await UsuarioService.GetAll();
+            var ult = list.OrderBy(x => x.id).Last();
             random = new Random().Next(1, 39);
             UsuarioDB temp=new UsuarioDB();
             temp.usuario1 = user;
@@ -71,7 +83,7 @@
             temp.email = email;
             temp.idIdioma = 1;
             temp.idImagen = random;
-            temp.id = 0;
+            temp.id = (ult.id+1);
             var que= await UsuarioService.Add(temp);
             await App.Current!.MainPage!.DisplayAlert("Registro", "Usuario registrado con éxito.", "OK");
             nav.NavigateTo("/",true);

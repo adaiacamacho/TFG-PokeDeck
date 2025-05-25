@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="agregar" xml:space="preserve">
+    <value>Erantsi</value>
+  </data>
   <data name="ant" xml:space="preserve">
     <value>Aurrekoa</value>
+  </data>
+  <data name="ape" xml:space="preserve">
+    <value>Abizena</value>
+  </data>
+  <data name="aviso" xml:space="preserve">
+    <value>Abisua</value>
   </data>
   <data name="avisocon" xml:space="preserve">
     <value>Karta hau zure gogokoenetan dago.</value>
@@ -132,8 +141,26 @@
   <data name="avisosucc" xml:space="preserve">
     <value>Gogokoa zuzenki gehitu da.</value>
   </data>
+  <data name="barajas" xml:space="preserve">
+    <value>Karta-sortak</value>
+  </data>
+  <data name="barcards" xml:space="preserve">
+    <value>Karta-sortako kartak</value>
+  </data>
   <data name="buscar" xml:space="preserve">
-    <value>Bilatu...</value>
+    <value>Bilatu</value>
+  </data>
+  <data name="buscarcartas" xml:space="preserve">
+    <value>Kartak bilatu</value>
+  </data>
+  <data name="cancelar" xml:space="preserve">
+    <value>Ezeztatu</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Itxi</value>
+  </data>
+  <data name="crear" xml:space="preserve">
+    <value>Sortu</value>
   </data>
   <data name="datospers" xml:space="preserve">
     <value>Informazio pertsonala</value>
@@ -144,17 +171,47 @@
   <data name="deb" xml:space="preserve">
     <value>Ahultasuna</value>
   </data>
+  <data name="delcard" xml:space="preserve">
+    <value>Karta ondo ezabatu da.</value>
+  </data>
   <data name="derechos" xml:space="preserve">
     <value>Eskubide guztiak erreserbatuta.</value>
+  </data>
+  <data name="eliminar" xml:space="preserve">
+    <value>Ezabatu</value>
+  </data>
+  <data name="fav" xml:space="preserve">
+    <value>Gogokoak</value>
+  </data>
+  <data name="guardaraviso" xml:space="preserve">
+    <value>Datuak ondo eguneratu dira.</value>
   </data>
   <data name="img" xml:space="preserve">
     <value>Irudia</value>
   </data>
+  <data name="inicio" xml:space="preserve">
+    <value>Hasiera</value>
+  </data>
+  <data name="lang" xml:space="preserve">
+    <value>Lehentasunezko hizkuntza</value>
+  </data>
   <data name="load" xml:space="preserve">
     <value>Kartak kargatzen...</value>
   </data>
+  <data name="logoff" xml:space="preserve">
+    <value>Saioa itxi</value>
+  </data>
+  <data name="needlogin" xml:space="preserve">
+    <value>Saioa hasi behar da funtzio honetan sartzeko.</value>
+  </data>
+  <data name="newbaraja" xml:space="preserve">
+    <value>Karta-sorta berria</value>
+  </data>
   <data name="nocard" xml:space="preserve">
     <value>Ez dago kartarik.</value>
+  </data>
+  <data name="nocard2" xml:space="preserve">
+    <value>Ez da aurkitu izen hori duen kartarik.</value>
   </data>
   <data name="nocoin" xml:space="preserve">
     <value>Ez dago bat datorren kartarik.</value>
@@ -162,8 +219,20 @@
   <data name="nom" xml:space="preserve">
     <value>Izena</value>
   </data>
+  <data name="nomperf" xml:space="preserve">
+    <value>Izena</value>
+  </data>
+  <data name="offaviso" xml:space="preserve">
+    <value>Saio itxia arrakastaz.</value>
+  </data>
   <data name="pag" xml:space="preserve">
     <value>Orria</value>
+  </data>
+  <data name="perfil" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="precio" xml:space="preserve">
+    <value>Prezio:</value>
   </data>
   <data name="rar" xml:space="preserve">
     <value>Arrarotasuna</value>
@@ -171,10 +240,19 @@
   <data name="redes" xml:space="preserve">
     <value>Jarraiguzu hemen:</value>
   </data>
+  <data name="save" xml:space="preserve">
+    <value>Aldaketak gorde</value>
+  </data>
   <data name="sig" xml:space="preserve">
     <value>Hurrengoa</value>
   </data>
   <data name="tipo" xml:space="preserve">
     <value>Mota</value>
+  </data>
+  <data name="tusbar" xml:space="preserve">
+    <value>Zure karta-sortak</value>
+  </data>
+  <data name="user" xml:space="preserve">
+    <value>Erabiltzaile-izena</value>
   </data>
 </root>

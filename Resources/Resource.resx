@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="agregar" xml:space="preserve">
+    <value>Agregar</value>
+  </data>
   <data name="ant" xml:space="preserve">
     <value>Anterior</value>
+  </data>
+  <data name="ape" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="aviso" xml:space="preserve">
+    <value>Aviso</value>
   </data>
   <data name="avisocon" xml:space="preserve">
     <value>Esta carta ya está en tus favoritos.</value>
@@ -132,8 +141,26 @@
   <data name="avisosucc" xml:space="preserve">
     <value>Favorito añadido correctamente.</value>
   </data>
+  <data name="barajas" xml:space="preserve">
+    <value>Barajas</value>
+  </data>
+  <data name="barcards" xml:space="preserve">
+    <value>Cartas de la baraja</value>
+  </data>
   <data name="buscar" xml:space="preserve">
-    <value>Buscar...</value>
+    <value>Buscar</value>
+  </data>
+  <data name="buscarcartas" xml:space="preserve">
+    <value>Buscar cartas</value>
+  </data>
+  <data name="cancelar" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="crear" xml:space="preserve">
+    <value>Crear</value>
   </data>
   <data name="datospers" xml:space="preserve">
     <value>Información personal</value>
@@ -144,17 +171,47 @@
   <data name="deb" xml:space="preserve">
     <value>Debilidad</value>
   </data>
+  <data name="delcard" xml:space="preserve">
+    <value>Carta eliminada con éxito.</value>
+  </data>
   <data name="derechos" xml:space="preserve">
     <value>Todos los derechos reservados.</value>
+  </data>
+  <data name="eliminar" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="fav" xml:space="preserve">
+    <value>Favoritos</value>
+  </data>
+  <data name="guardaraviso" xml:space="preserve">
+    <value>Datos actualizados con éxito.</value>
   </data>
   <data name="img" xml:space="preserve">
     <value>Imagen</value>
   </data>
+  <data name="inicio" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="lang" xml:space="preserve">
+    <value>Idioma de preferencia</value>
+  </data>
   <data name="load" xml:space="preserve">
     <value>Cargando cartas...</value>
   </data>
+  <data name="logoff" xml:space="preserve">
+    <value>Cerrar sesión</value>
+  </data>
+  <data name="needlogin" xml:space="preserve">
+    <value>Es necesario iniciar sesión para acceder a esta función.</value>
+  </data>
+  <data name="newbaraja" xml:space="preserve">
+    <value>Nueva baraja</value>
+  </data>
   <data name="nocard" xml:space="preserve">
     <value>No hay cartas.</value>
+  </data>
+  <data name="nocard2" xml:space="preserve">
+    <value>No se encontraron cartas con ese nombre.</value>
   </data>
   <data name="nocoin" xml:space="preserve">
     <value>No hay cartas que coincidan.</value>
@@ -162,8 +219,20 @@
   <data name="nom" xml:space="preserve">
     <value>Nombre</value>
   </data>
+  <data name="nomperf" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="offaviso" xml:space="preserve">
+    <value>Sesion cerrada con éxito.</value>
+  </data>
   <data name="pag" xml:space="preserve">
     <value>Página</value>
+  </data>
+  <data name="perfil" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="precio" xml:space="preserve">
+    <value>Precio:</value>
   </data>
   <data name="rar" xml:space="preserve">
     <value>Rareza</value>
@@ -171,10 +240,19 @@
   <data name="redes" xml:space="preserve">
     <value>Síguenos en:</value>
   </data>
+  <data name="save" xml:space="preserve">
+    <value>Guardar cambios</value>
+  </data>
   <data name="sig" xml:space="preserve">
     <value>Siguiente</value>
   </data>
   <data name="tipo" xml:space="preserve">
     <value>Tipo</value>
+  </data>
+  <data name="tusbar" xml:space="preserve">
+    <value>Tus barajas</value>
+  </data>
+  <data name="user" xml:space="preserve">
+    <value>Usuario</value>
   </data>
 </root>

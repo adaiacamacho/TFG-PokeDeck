@@ -7,7 +7,7 @@
 @inject UsuarioService UsuarioService
 @inject BarajaService BarajaService
 
-<h3>Tus barajas</h3>
+<h3>@loc["tusbar"]</h3>
 <div class="d-flex flex-wrap gap-3">
 	<!-- Tarjeta nueva baraja -->
 	<div class="card shadow-sm border rounded-4 p-0" style="width: 12rem; background: linear-gradient(to bottom, #f3f3f3, #dcdcdc);">
@@ -15,7 +15,7 @@
 			<i class="bi bi-plus-lg" style="font-size:2rem; color: #666;"></i>
 		</button>
 		<div class="card-body text-center">
-			<h6 class="card-title">Nueva baraja</h6>
+			<h6 class="card-title">@loc["newbaraja"]</h6>
 		</div>
 	</div>
 
@@ -41,18 +41,18 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Nueva baraja</h5>
+				<h5 class="modal-title">@loc["newbaraja"]</h5>
 				<button type="button" class="btn-close" aria-label="Close" @onclick="() => mostrarDialogo = false"></button>
 			</div>
 			<div class="modal-body">
 				<div class="mb-3">
-					<label for="nombreBaraja" class="form-label">Nombre</label>
+					<label for="nombreBaraja" class="form-label">@loc["nom"]</label>
 					<InputText id="nombreBaraja" class="form-control" @bind-Value="nuevoNombre" />
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" @onclick="() => mostrarDialogo = false">Cancelar</button>
-				<button type="button" class="btn btn-primary" @onclick="CrearBaraja">Crear</button>
+				<button type="button" class="btn btn-secondary" @onclick="() => mostrarDialogo = false">@loc["cancelar"]</button>
+				<button type="button" class="btn btn-primary" @onclick="CrearBaraja">@loc["crear"]</button>
 			</div>
 		</div>
 	</div>

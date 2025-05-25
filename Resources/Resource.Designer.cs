@@ -61,11 +61,38 @@ namespace PokeDeck.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Agregar.
+        /// </summary>
+        public static string agregar {
+            get {
+                return ResourceManager.GetString("agregar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Anterior.
         /// </summary>
         public static string ant {
             get {
                 return ResourceManager.GetString("ant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Apellido.
+        /// </summary>
+        public static string ape {
+            get {
+                return ResourceManager.GetString("ape", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Aviso.
+        /// </summary>
+        public static string aviso {
+            get {
+                return ResourceManager.GetString("aviso", resourceCulture);
             }
         }
         
@@ -106,11 +133,65 @@ namespace PokeDeck.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Buscar....
+        ///   Busca una cadena traducida similar a Barajas.
+        /// </summary>
+        public static string barajas {
+            get {
+                return ResourceManager.GetString("barajas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cartas de la baraja.
+        /// </summary>
+        public static string barcards {
+            get {
+                return ResourceManager.GetString("barcards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Buscar.
         /// </summary>
         public static string buscar {
             get {
                 return ResourceManager.GetString("buscar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Buscar cartas.
+        /// </summary>
+        public static string buscarcartas {
+            get {
+                return ResourceManager.GetString("buscarcartas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cancelar.
+        /// </summary>
+        public static string cancelar {
+            get {
+                return ResourceManager.GetString("cancelar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cerrar.
+        /// </summary>
+        public static string close {
+            get {
+                return ResourceManager.GetString("close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Crear.
+        /// </summary>
+        public static string crear {
+            get {
+                return ResourceManager.GetString("crear", resourceCulture);
             }
         }
         
@@ -142,11 +223,47 @@ namespace PokeDeck.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Carta eliminada con éxito..
+        /// </summary>
+        public static string delcard {
+            get {
+                return ResourceManager.GetString("delcard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Todos los derechos reservados..
         /// </summary>
         public static string derechos {
             get {
                 return ResourceManager.GetString("derechos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Eliminar.
+        /// </summary>
+        public static string eliminar {
+            get {
+                return ResourceManager.GetString("eliminar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Favoritos.
+        /// </summary>
+        public static string fav {
+            get {
+                return ResourceManager.GetString("fav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Datos actualizados con éxito..
+        /// </summary>
+        public static string guardaraviso {
+            get {
+                return ResourceManager.GetString("guardaraviso", resourceCulture);
             }
         }
         
@@ -160,6 +277,24 @@ namespace PokeDeck.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Inicio.
+        /// </summary>
+        public static string inicio {
+            get {
+                return ResourceManager.GetString("inicio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Idioma de preferencia.
+        /// </summary>
+        public static string lang {
+            get {
+                return ResourceManager.GetString("lang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Cargando cartas....
         /// </summary>
         public static string load {
@@ -169,11 +304,47 @@ namespace PokeDeck.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cerrar sesión.
+        /// </summary>
+        public static string logoff {
+            get {
+                return ResourceManager.GetString("logoff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Es necesario iniciar sesión para acceder a esta función..
+        /// </summary>
+        public static string needlogin {
+            get {
+                return ResourceManager.GetString("needlogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nueva baraja.
+        /// </summary>
+        public static string newbaraja {
+            get {
+                return ResourceManager.GetString("newbaraja", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No hay cartas..
         /// </summary>
         public static string nocard {
             get {
                 return ResourceManager.GetString("nocard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No se encontraron cartas con ese nombre..
+        /// </summary>
+        public static string nocard2 {
+            get {
+                return ResourceManager.GetString("nocard2", resourceCulture);
             }
         }
         
@@ -196,11 +367,47 @@ namespace PokeDeck.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Nombre.
+        /// </summary>
+        public static string nomperf {
+            get {
+                return ResourceManager.GetString("nomperf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sesion cerrada con éxito..
+        /// </summary>
+        public static string offaviso {
+            get {
+                return ResourceManager.GetString("offaviso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Página.
         /// </summary>
         public static string pag {
             get {
                 return ResourceManager.GetString("pag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Perfil.
+        /// </summary>
+        public static string perfil {
+            get {
+                return ResourceManager.GetString("perfil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Precio:.
+        /// </summary>
+        public static string precio {
+            get {
+                return ResourceManager.GetString("precio", resourceCulture);
             }
         }
         
@@ -223,6 +430,15 @@ namespace PokeDeck.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Guardar cambios.
+        /// </summary>
+        public static string save {
+            get {
+                return ResourceManager.GetString("save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Siguiente.
         /// </summary>
         public static string sig {
@@ -237,6 +453,24 @@ namespace PokeDeck.Resources {
         public static string tipo {
             get {
                 return ResourceManager.GetString("tipo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tus barajas.
+        /// </summary>
+        public static string tusbar {
+            get {
+                return ResourceManager.GetString("tusbar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Usuario.
+        /// </summary>
+        public static string user {
+            get {
+                return ResourceManager.GetString("user", resourceCulture);
             }
         }
     }

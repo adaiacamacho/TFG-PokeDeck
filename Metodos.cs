@@ -1,17 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace PokeDeck
 {
     internal class Metodos
     {
         public static bool perfil=false;
-        public static string SelectedLanguage = "es";
-
            
         //https://api.pokemontcg.io/v2/cards
 
@@ -66,11 +58,6 @@ namespace PokeDeck
             string query = string.Join(" OR ", ListaIDs.Select(id => $"id:{id}"));
             
             return $"https://api.pokemontcg.io/v2/cards?q={Uri.EscapeDataString(query)}";
-        }
-
-        public static void ChangeLanguage(ChangeEventArgs e)
-        {
-            SelectedLanguage = e.Value.ToString();
         }
         public static string ImagenParse(byte[] imagenBytes)
         {
