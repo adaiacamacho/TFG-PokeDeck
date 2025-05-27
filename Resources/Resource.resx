@@ -141,6 +141,9 @@
   <data name="avisosucc" xml:space="preserve">
     <value>Favorito añadido correctamente.</value>
   </data>
+  <data name="barajaEliminada" xml:space="preserve">
+    <value>Baraja eliminada correctamente.</value>
+  </data>
   <data name="barajas" xml:space="preserve">
     <value>Barajas</value>
   </data>
@@ -177,11 +180,17 @@
   <data name="derechos" xml:space="preserve">
     <value>Todos los derechos reservados.</value>
   </data>
+  <data name="editarbaraja" xml:space="preserve">
+    <value>Editar el nombre</value>
+  </data>
   <data name="eliminar" xml:space="preserve">
     <value>Eliminar</value>
   </data>
   <data name="fav" xml:space="preserve">
     <value>Favoritos</value>
+  </data>
+  <data name="guardar" xml:space="preserve">
+    <value>Guardar</value>
   </data>
   <data name="guardaraviso" xml:space="preserve">
     <value>Datos actualizados con éxito.</value>

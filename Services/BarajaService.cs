@@ -42,12 +42,14 @@ namespace PokeDeck.Services
             return response.IsSuccessStatusCode;
         }
 
+        //editar
         public async Task<bool> Update(int id, BarajaDB item)
         {
             var response = await _http.PutAsJsonAsync($"{apiUrl}/{id}", item);
             return response.IsSuccessStatusCode;
         }
 
+        //eliminar
         public async Task<bool> Delete(int id)
         {
             var response = await _http.DeleteAsync($"{apiUrl}/{id}");

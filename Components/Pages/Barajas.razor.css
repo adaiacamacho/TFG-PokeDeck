@@ -42,3 +42,94 @@
     color: #333;
     margin: 0;
 }
+
+.tarjeta-baraja {
+    position: relative;
+    z-index: 1; /* aseguramos que no tape el boton de eliminar */
+}
+
+/*boton eliminar*/
+.eliminar-btn {
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 100; /* subido a 100 */
+    background-color: red !important;
+}
+
+.position-relative:hover .eliminar-btn {
+    opacity: 1;
+}
+
+/*boton editar*/
+.nombre-baraja-container {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-editar {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #ccc;
+    border: none;
+    color: #333;
+    display: none;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: 4px;
+}
+
+.btn-editar-bottom {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background-color: #ccc;
+    border: none;
+    color: #333;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+.tarjeta-baraja:hover .btn-editar-bottom {
+    opacity: 1;
+}
+
+
+/*ventana emergente edicion*/
+.estilo-modal {
+    background: linear-gradient(to bottom, #ffffff, #f3f3f3);
+    border-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    border: none;
+}
+
+.modal-footer .btn-primary {
+    background-color: #007bff;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
+
+.modal.fade.d-block {
+    display: block;
+}
+
+.card {
+    pointer-events: none;
+}
+
+.card-body,
+.card-img-top {
+    pointer-events: auto;
+}

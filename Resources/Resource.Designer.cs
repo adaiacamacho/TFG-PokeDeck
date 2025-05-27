@@ -133,6 +133,15 @@ namespace PokeDeck.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Baraja eliminada correctamente..
+        /// </summary>
+        public static string barajaEliminada {
+            get {
+                return ResourceManager.GetString("barajaEliminada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Barajas.
         /// </summary>
         public static string barajas {
@@ -241,6 +250,15 @@ namespace PokeDeck.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Editar el nombre.
+        /// </summary>
+        public static string editarbaraja {
+            get {
+                return ResourceManager.GetString("editarbaraja", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Eliminar.
         /// </summary>
         public static string eliminar {
@@ -255,6 +273,15 @@ namespace PokeDeck.Resources {
         public static string fav {
             get {
                 return ResourceManager.GetString("fav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Guardar.
+        /// </summary>
+        public static string guardar {
+            get {
+                return ResourceManager.GetString("guardar", resourceCulture);
             }
         }
         

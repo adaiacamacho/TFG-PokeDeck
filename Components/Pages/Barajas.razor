@@ -7,6 +7,16 @@
 @inject UsuarioService UsuarioService
 @inject BarajaService BarajaService
 
+
+<!-- mensaje baraja eliminada -->
+@if (mostrarMensaje)
+{
+	<div class="alert alert-success shadow-sm rounded-3" role="alert">
+		@mensajeExito
+	</div>
+}
+
+
 <h3>@loc["tusbar"]</h3>
 <div class="d-flex flex-wrap gap-3">
 	<!-- Tarjeta nueva baraja -->
@@ -22,47 +32,96 @@
 	<!-- Tarjetas de barajas existentes -->
 	@foreach (var baraja in barajas)
 	{
-				<NavLink class="card shadow-sm border rounded-4 p-0 text-decoration-none"
-				 style="width: 12rem; background: linear-gradient(to bottom, #fff, #f0f0f0); color: inherit;"
-				 href=@($"cartasBaraja/{baraja.Id}")>
-			<div class="card-img-top d-flex align-items-center justify-content-center"
-				 style="height: 8rem; background-color:#f7f7f7;">
-			</div>
-			<div class="card-body text-center">
-				<h6 class="card-title">@baraja.Nombre</h6>
-			</div>
-		</NavLink>
+		<div class="position-relative tarjeta-baraja" style="width: 12rem;">
+			<NavLink class="card shadow-sm border rounded-4 p-0 text-decoration-none"
+			style="background: linear-gradient(to bottom, #fff, #f0f0f0); color: inherit;"
+			href=@($"cartasBaraja/{baraja.Id}")>
+				<div class="card-img-top d-flex align-items-center justify-content-center"
+				style="height: 8rem; background-color:#f7f7f7;">
+				</div>
+				<div class="card-body text-center position-relative nombre-baraja-container">
+					<h6 class="card-title d-inline">@baraja.Nombre</h6>
+				</div>
+			</NavLink>
+
+			<!-- Botón editar en esquina inferior derecha -->
+			<button class="btn btn-sm btn-editar-bottom"
+			title="Editar"
+			@onclick="() => EditarBaraja(baraja)">
+				<i class="bi bi-pencil"></i>
+			</button>
+
+			<!-- Botón eliminar -->
+			<button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 rounded-circle eliminar-btn"
+			title="Eliminar"
+			@onclick="() => EliminarBaraja(baraja.Id)">
+				<i class="bi bi-trash"></i>
+			</button>
+		</div>
 
 	}
 </div>
 
-<!-- Modal de Bootstrap -->
-<div class="modal fade @(mostrarDialogo ? "show d-block" : "")" tabindex="-1" style="background-color: rgba(0,0,0,0.5);" role="dialog">
+<!-- Ventana emergente para crear baraja -->
+<div class="modal fade @(mostrarDialogo ? "show d-block" : "")" tabindex="-1" style="background-color: rgba(0,0,0,0.4);" role="dialog">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
+		<div class="modal-content border-0 shadow-lg rounded-4" style="background: linear-gradient(to bottom, #f9f9f9, #eaeaea);">
+			<div class="modal-header border-bottom-0 pb-0">
 				<h5 class="modal-title">@loc["newbaraja"]</h5>
 				<button type="button" class="btn-close" aria-label="Close" @onclick="() => mostrarDialogo = false"></button>
 			</div>
 			<div class="modal-body">
 				<div class="mb-3">
 					<label for="nombreBaraja" class="form-label">@loc["nom"]</label>
-					<InputText id="nombreBaraja" class="form-control" @bind-Value="nuevoNombre" />
+					<InputText id="nombreBaraja" class="form-control shadow-sm rounded-3" @bind-Value="nuevoNombre" />
 				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" @onclick="() => mostrarDialogo = false">@loc["cancelar"]</button>
-				<button type="button" class="btn btn-primary" @onclick="CrearBaraja">@loc["crear"]</button>
+			<div class="modal-footer border-top-0 pt-0">
+				<button type="button" class="btn btn-light rounded-3 shadow-sm px-4" @onclick="() => mostrarDialogo = false">@loc["cancelar"]</button>
+				<button type="button" class="btn rounded-3 shadow-sm px-4" style="background-color:#f9f9f9; border:none; color:black;" @onclick="CrearBaraja">@loc["crear"]</button>
 			</div>
 		</div>
 	</div>
 </div>
 
+<!-- Ventana emergente de edición nombre baraja -->
+<div class="modal fade @(mostrarDialogoEditar ? "show d-block" : "")" tabindex="-1" style="background-color: rgba(0,0,0,0.4);" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content border-0 shadow-lg rounded-4" style="background: linear-gradient(to bottom, #f9f9f9, #eaeaea);">
+			<div class="modal-header border-bottom-0 pb-0">
+				<h5 class="modal-title">@loc["editarbaraja"]</h5>
+				<button type="button" class="btn-close" aria-label="Close" @onclick="CancelarEdicion"></button>
+			</div>
+			<div class="modal-body">
+				<div class="mb-3">
+					<label for="nombreBarajaEditada" class="form-label">@loc["nom"]</label>
+					<InputText id="nombreBarajaEditada" class="form-control shadow-sm rounded-3" @bind-Value="nombreEditado" />
+				</div>
+			</div>
+			<div class="modal-footer border-top-0 pt-0">
+				<button type="button" class="btn btn-light rounded-3 shadow-sm px-4" @onclick="CancelarEdicion">@loc["cancelar"]</button>
+				<button type="button" class="btn rounded-3 shadow-sm px-4" style="background-color:#f9f9f9; border:none; color:black;" @onclick="GuardarCambios">@loc["guardar"]</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
 @code {
 	int idioma = 0;
 	bool mostrarDialogo = false;
+	bool mostrarDialogoEditar = false;
+
 	string nuevoNombre = string.Empty;
 	List<BarajaDB> barajas = new();
+
+	BarajaDB? barajaEditando = null;
+	string nombreEditado = string.Empty;
+
+	string mensajeExito = string.Empty;
+	bool mostrarMensaje = false;
+
 
 	private void OnLanguageChanged()
 	{
@@ -118,6 +177,68 @@
 		else
 		{
 			// Manejo de error
+		}
+	}
+
+	//metodo para eliminar barajas
+	public async Task EliminarBaraja(int idBaraja)
+	{
+		var exito = await BarajaService.Delete(idBaraja);
+		if (exito)
+		{
+			await CargarBarajas();
+			mensajeExito = loc["barajaEliminada"];
+			mostrarMensaje = true;
+
+			StateHasChanged();
+
+			// Ocultar el mensaje después de 3 segundos
+			await Task.Delay(3000);
+			mostrarMensaje = false;
+			StateHasChanged();
+		}
+		else
+		{
+			// Mostrar error
+		}
+	}
+
+
+	//metodos para editar el nombre de la baraja
+	public void EditarBaraja(BarajaDB baraja)
+	{
+		barajaEditando = baraja;
+		nombreEditado = baraja.Nombre;
+		mostrarDialogoEditar = true;
+	}
+
+	public void CancelarEdicion()
+	{
+		mostrarDialogoEditar = false;
+		nombreEditado = string.Empty;
+		barajaEditando = null;
+	}
+
+	public async Task GuardarCambios()
+	{
+		if (barajaEditando != null && !string.IsNullOrWhiteSpace(nombreEditado))
+		{
+			barajaEditando.Nombre = nombreEditado;
+
+			var exito = await BarajaService.Update(barajaEditando.Id, barajaEditando);
+			if (exito)
+			{
+				mostrarDialogoEditar = false;
+				nombreEditado = string.Empty;
+				barajaEditando = null;
+
+				await CargarBarajas();
+				StateHasChanged(); // <--- Asegura el refresco del UI
+			}
+			else
+			{
+				// mostrar error
+			}
 		}
 	}
 }

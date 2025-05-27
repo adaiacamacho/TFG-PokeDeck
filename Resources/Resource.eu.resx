@@ -141,6 +141,9 @@
   <data name="avisosucc" xml:space="preserve">
     <value>Gogokoa zuzenki gehitu da.</value>
   </data>
+  <data name="barajaEliminada" xml:space="preserve">
+    <value>Zuzenki ezabatu da.</value>
+  </data>
   <data name="barajas" xml:space="preserve">
     <value>Karta-sortak</value>
   </data>
@@ -177,11 +180,17 @@
   <data name="derechos" xml:space="preserve">
     <value>Eskubide guztiak erreserbatuta.</value>
   </data>
+  <data name="editarbaraja" xml:space="preserve">
+    <value>Izena aldatu</value>
+  </data>
   <data name="eliminar" xml:space="preserve">
     <value>Ezabatu</value>
   </data>
   <data name="fav" xml:space="preserve">
     <value>Gogokoak</value>
+  </data>
+  <data name="guardar" xml:space="preserve">
+    <value>Gorde</value>
   </data>
   <data name="guardaraviso" xml:space="preserve">
     <value>Datuak ondo eguneratu dira.</value>
