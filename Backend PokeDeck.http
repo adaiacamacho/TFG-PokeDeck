@@ -1,0 +1,6 @@
+@Backend_PokeDeck_HostAddress = http://localhost:5196
+
+GET {{Backend_PokeDeck_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
